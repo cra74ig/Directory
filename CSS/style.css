@@ -1,0 +1,47 @@
+html{
+    font-family: 'Courier New', Courier, monospace;
+}
+#top-menu{
+    position: fixed;
+    background-color: #333;
+    color: white;
+    width: 100%;
+}
+#search{
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+} 
+#searchbar{
+    background-image: url("../Images/icons8-search-client-24.png");
+    background-repeat: no-repeat;
+    height:30px;
+    padding-left:25px; 
+    background-color: white;
+}
+input{
+    color:black; 
+}
+select{
+    color: black;
+}
+.admin{
+    color: white;
+}
+#adminControls{
+    position: fixed;
+    right: 0;
+    background-color: #333;
+}
+button:hover{
+    background-color: green;
+}
+h1{
+    text-align: center;
+}
+#searchIcon{
+    position: fixed;
+    color: black;
+    height: auto;
+    width: max-content;
+}
