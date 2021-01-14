@@ -34,13 +34,39 @@
                 </div>
             
             <div id="adminControls">
-                <button class="btn"><i class="fas fa-plus-circle admin"></i></button>
-                <button class="btn"><i class="fas fa-edit admin"></i></button>
-                <button class="btn"><i class="fas fa-trash-alt admin"></i></button>
+                <button class="btn" id="add"><i class="fas fa-plus-circle admin"></i></button>
+                <button class="btn" id="edit"><i class="fas fa-edit admin"></i></button>
+                <button class="btn" id="delete"><i class="fas fa-trash-alt admin"></i></button>
+            </div>
+            <br>
+            <br>
+            <div id="dropDowns">
+                <select id="addDropDown" class="dropDownOptions">
+                    <option value="contact">Add contact</option>
+                    <option value="department">Add department</option>
+                    <option value="location">Add location</option>
+                </select>
+                <select id="editDropDown" class="dropDownOptions">
+                    <option value="contact">Edit contact</option>
+                    <option value="department">Edit department</option>
+                    <option value="location">Edit location</option>
+                </select>
+                <select id="deleteDropDown" class="dropDownOptions">
+                    <option value="contact">Delete contact</option>
+                    <option value="department">Delete department</option>
+                    <option value="location">Delete location</option>
+                </select>
             </div>
         </div>
         <div id="contacts"></div>
         <script src="JS/jquery-2.2.3.min.js"></script>
         <script src="js/Script.js"></script>
+        
+    <footer>
+        <p>
+        <a href="https://icons8.com/">Icons provided by icons8.com</a>
+        </p>
+    </footer>
     </body>
+
 </html>
