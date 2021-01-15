@@ -31,7 +31,7 @@
                 </select>
             </form>
                 <div id="search">
-                    <!-- <i class="icon fa fa-search" id="searchIcon"></i> -->
+                    
                     <input name="searchbar" type="search" id="searchbar"></input>
                 </div>
             
@@ -47,7 +47,7 @@
                     <option disabled selected>Add...</option>
                     <option value="#addContact">Add contact</option>
                     <option value="#addDepartment">Add department</option>
-                    <option value="#addlocation">Add location</option>
+                    <option value="#addLocation">Add location</option>
                 </select>
                 <select id="editDropDown" class="dropDownOptions">
                     <option disabled selected>Edit...</option>
@@ -75,13 +75,13 @@
                 </div>
                 <div class="modal-body">
                   <form>
-                      <input class="modalForm" type="text" id="firstName" value="First name" required>
+                      <input class="modalForm" type="text" id="addFirstName" placeholder="First name" required>
                       <br>
                       <br>
-                      <input class="modalForm" type="text" id="surname" value="Surname" required>
+                      <input class="modalForm" type="text" id="addSurname" placeholder="Surname" required>
                       <br>
                       <br>
-                      <input class="modalForm" type="text" id="email" value="Example@domain.com" required>
+                      <input class="modalForm" type="text" id="addEmail" placeholder="Example@domain.com" required>
                       <br>
                       <br>
                       <select class="modalForm" id="addContactDepartment" required>
@@ -89,12 +89,59 @@
                       </select>
                       <br>
                       <br>
-                      <input class="modalForm" type="text" id="jobTitle" value="Job title" required>
+                      <input class="modalForm" type="text" id="addJobTitle" value="Job title" required>
                   </form>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Save changes</button>
+                  <input type="submit" class="btn btn-primary" value="Add Contact">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal" tabindex="-1" id="addDepartment">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Add Department</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                      <input class="modalForm" type="text" id="addDepartmentName" placeholder="Department name" required>
+                      <br>
+                      <br>
+                      <select class="modalForm" id="addDepartmentLocation" required>
+                          <option disabled selected value="">Location</option>
+                      </select>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <input type="submit" class="btn btn-primary" value="Add Department">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal" tabindex="-1" id="addLocation">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Add Location</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                      <input class="modalForm" type="text" id="addLocationName" placeholder="Location name" required>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <input type="submit" class="btn btn-primary" value="Add Location">
                 </div>
               </div>
             </div>
