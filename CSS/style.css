@@ -43,8 +43,11 @@ select{
     right: 0;
     visibility: hidden;
 }
-button:hover{
+/* button:hover{
     background-color: green;
+} */
+.active{
+    visibility: visible;
 }
 h1{
     text-align: center;
