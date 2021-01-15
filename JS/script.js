@@ -1,5 +1,5 @@
 $("#add").click(function(){
-    $(this).prop("selectedIndex", 0);
+    $("#addDropDown").prop("selectedIndex", 0);
     if ($("#editDropDown").hasClass("active")){
         $("#editDropDown").removeClass("active");
         $("#edit").css("background-color", "#333");
@@ -21,7 +21,7 @@ $("#add").click(function(){
     }
 });
 $("#edit").click(function(){
-    $(this).prop("selectedIndex", 0);
+    $("#editDropDown").prop("selectedIndex", 0);
     if ($("#addDropDown").hasClass("active")){
         $("#addDropDown").removeClass("active");
         $("#add").css("background-color", "#333");
@@ -39,7 +39,7 @@ $("#edit").click(function(){
     }
 });
 $("#delete").click(function(){
-    $(this).prop("selectedIndex", 0);
+    $("#deleteDropDown").prop("selectedIndex", 0);
     if ($("#addDropDown").hasClass("active")){
         $("#addDropDown").removeClass("active");
         $("#add").css("background-color", "#333");
