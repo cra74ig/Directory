@@ -2,10 +2,12 @@ $("#add").click(function(){
     if ($("#editDropDown").hasClass("active")){
         $("#editDropDown").removeClass("active");
         $("#edit").css("background-color", "#333");
+        $("#editDropDown").prop("selectedIndex", 0);
     }
     if ($("#deleteDropDown").hasClass("active")){
         $("#deleteDropDown").removeClass("active");
         $("#delete").css("background-color", "#333");
+        $("#addDropDown").prop("selectedIndex", 0);
     }
     if ($("#addDropDown").hasClass("active")){
         $("#addDropDown").removeClass("active");
@@ -19,10 +21,12 @@ $("#edit").click(function(){
     if ($("#addDropDown").hasClass("active")){
         $("#addDropDown").removeClass("active");
         $("#add").css("background-color", "#333");
+        $("#addDropDown").prop("selectedIndex", 0);
     }
     if ($("#deleteDropDown").hasClass("active")){
         $("#deleteDropDown").removeClass("active");
         $("#delete").css("background-color", "#333");
+        $("#deleteDropDown").prop("selectedIndex", 0);
     }
     if ($("#editDropDown").hasClass("active")){
         $("#editDropDown").removeClass("active");
@@ -36,10 +40,12 @@ $("#delete").click(function(){
     if ($("#addDropDown").hasClass("active")){
         $("#addDropDown").removeClass("active");
         $("#add").css("background-color", "#333");
+        $("#addDropDown").prop("selectedIndex", 0);
     }
     if ($("#editDropDown").hasClass("active")){
         $("#editDropDown").removeClass("active");
         $("#edit").css("background-color", "#333");
+        $("#editDropDown").prop("selectedIndex", 0);
     }
     if ($("#deleteDropDown").hasClass("active")){
         $("#deleteDropDown").removeClass("active");
