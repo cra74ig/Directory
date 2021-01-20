@@ -12,7 +12,7 @@
     
   } else {
     
-    $query = 'SELECT id, name, locationID FROM department';
+    $query = 'SELECT id, name FROM location';
     $result=$link->query($query);
     if($result){
         // echo '<p>success</p>';

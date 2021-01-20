@@ -7,16 +7,70 @@ $(document).ready(function(){
             
 
             if (result.status.name == "ok") {
-                $x = result.data.len;
-                console.log(result);
-                console.log($x);
+                $x = result.len;
                 for (let index = 0; index < $x; index++) {
-                    console.log(result.data[index]["id"]);
-                    console.log(result.data[index]["name"]);
                     $('#DepartmentFilter').append($('<option>', {
                     value: result.data[index]["id"],
                     text: result.data[index]["name"]
                 }));
+                    
+                }
+
+                
+            }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+    $.ajax({
+        url: "PHP/GetLocations.PHP",
+        type: 'GET',
+        dataType: 'json',
+        success: function(result) {
+            
+
+            if (result.status.name == "ok") {
+                $x = result.len;
+                for (let index = 0; index < $x; index++) {                    
+                    $('#LocationFilter').append($('<option>', {
+                    value: result.data[index]["id"],
+                    text: result.data[index]["name"]
+                }));
+                for (let index = 0; index < $x; index++) {                    
+                    $('#addDepartmentLocation').append($('<option>', {
+                    value: result.data[index]["id"],
+                    text: result.data[index]["name"]
+                }));
+                
+                    
+                }
+
+                
+            }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+    $.ajax({
+        url: "PHP/GetAllContacts.PHP",
+        type: 'GET',
+        dataType: 'json',
+        success: function(result) {
+            
+
+            if (result.status.name == "ok") {
+                $x = result.len;
+                for (let index = 0; index < $x; index++) {
+                    // console.log(result.data[index]);
+                
+                //     $('#LocationFilter').append($('<option>', {
+                //     value: result.data[index]["id"],
+                //     text: result.data[index]["name"]
+                // }));
                     
                 }
 
@@ -94,4 +148,29 @@ $("#editDropDown").change(function(){
 $("#addDropDown").change(function(){
     console.log($(this).val());
     $($(this).val()).modal('toggle');
+})
+$("#addLocationConfirm").click(function(){
+    $name = $("#addLocationName").val()
+
+    $.ajax({
+        url: "PHP/AddLocation.PHP",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            name: $name
+        },
+        success: function(result) {
+            
+
+            if (result.status.name == "ok") {
+                alert("Location Added");
+                location.reload();
+                
+            }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
 })
