@@ -66,12 +66,11 @@ $(document).ready(function(){
             if (result.status.name == "ok") {
                 $x = result.len;
                 for (let index = 0; index < $x; index++) {
-                    // console.log(result.data[index]);
-                
-                //     $('#LocationFilter').append($('<option>', {
-                //     value: result.data[index]["id"],
-                //     text: result.data[index]["name"]
-                // }));
+                    console.log(result.data[index]);
+                    $contact = " <div class='card border-dark mb-3 contact'><div class='card-header'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</div><div class='card-body text-dark'><h5 class='card-title'>"+result.data[index]['jobTitle']+"</h5><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i></a> "+result.data[index]['email']+"<br>"+result.data[index]['department']+"</p></div></div>";
+                   
+                    
+                     $('#contacts').append($($contact));
                     
                 }
 
