@@ -13,7 +13,10 @@ $(document).ready(function(){
                     value: result.data[index]["id"],
                     text: result.data[index]["name"]
                 }));
-                    
+                $('#addContactDepartment').append($('<option>', {
+                    value: result.data[index]["id"],
+                    text: result.data[index]["name"]
+                }));
                 }
 
                 
@@ -38,12 +41,10 @@ $(document).ready(function(){
                     value: result.data[index]["id"],
                     text: result.data[index]["name"]
                 }));
-                for (let index = 0; index < $x; index++) {                    
-                    $('#addDepartmentLocation').append($('<option>', {
+                $('#addDepartmentLocation').append($('<option>', {
                     value: result.data[index]["id"],
                     text: result.data[index]["name"]
                 }));
-                
                     
                 }
 
@@ -158,6 +159,64 @@ $("#addLocationConfirm").click(function(){
         dataType: 'json',
         data: {
             name: $name
+        },
+        success: function(result) {
+            
+
+            if (result.status.name == "ok") {
+                alert("Location Added");
+                location.reload();
+                
+            }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+})
+$("#addDepartmentConfirm").click(function(){
+    $name = $("#addDepartmentName").val();
+    $location = $("#addDepartmentLocation").val();
+    $.ajax({
+        url: "PHP/AddDepartment.PHP",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            name: $name,
+            location: $location
+        },
+        success: function(result) {
+            
+
+            if (result.status.name == "ok") {
+                alert("Location Added");
+                location.reload();
+                
+            }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+})
+$("#addContactConfirm").click(function(){
+    $firstName = $("#addFirstName").val();
+    $department = $("#addContactDepartment").val();
+    $surname = $("#addSurname").val();
+    $email = $("#addEmail").val();
+    $jobTitle = $("#addJobTitle").val();
+    $.ajax({
+        url: "PHP/AddContact.PHP",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            firstName: $firstName,
+            department: $department,
+            surname: $surname,
+            email: $email,
+            jobTitle: $jobTitle
         },
         success: function(result) {
             

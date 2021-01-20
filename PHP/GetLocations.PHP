@@ -12,7 +12,7 @@
     
   } else {
     
-    $query = 'SELECT id, name FROM location';
+    $query = 'SELECT id, name FROM location ORDER BY name';
     $result=$link->query($query);
     if($result){
         // echo '<p>success</p>';
