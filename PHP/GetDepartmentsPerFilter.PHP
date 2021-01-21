@@ -1,5 +1,6 @@
 <?php
   include("config.php");
+
   $link = new mysqli($host_name, $user_name, $password, $database);
 
   if ($link->connect_error) {
@@ -11,7 +12,7 @@
     
   } else {
     
-    $query = 'SELECT p.lastName, p.firstName, p.jobTitle, p.email, d.name as department, l.name as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = d.locationID) ORDER BY  p.firstName, p.lastName, d.name, l.name';
+    $query = 'SELECT id, name, locationID  FROM `department` WHERE `locationID` = '. $_REQUEST['location'] .' ORDER BY name';
     $result=$link->query($query);
     if($result){
         // echo '<p>success</p>';

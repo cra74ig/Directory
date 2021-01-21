@@ -1,4 +1,33 @@
-$(document).ready(function(){
+function GetAllContacts(){
+    $.ajax({
+        url: "PHP/GetAllContacts.PHP",
+        type: 'GET',
+        dataType: 'json',
+        success: function(result) {
+            
+
+            if (result.status.name == "ok") {
+                $("#contacts").empty()
+                $x = result.len;
+                for (let index = 0; index < $x; index++) {
+                    console.log(result.data[index]);
+                    $contact = " <div class='card border-dark mb-3 contact'><div class='card-header'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</div><div class='card-body text-dark'><h5 class='card-title'>"+result.data[index]['jobTitle']+"</h5><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i></a> "+result.data[index]['email']+"<br>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
+                   
+                    
+                     $('#contacts').append($($contact));
+                    
+                }
+
+                
+            }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+}
+function GetAllDepartments(){
     $.ajax({
         url: "PHP/GetDepartments.PHP",
         type: 'GET',
@@ -7,6 +36,8 @@ $(document).ready(function(){
             
 
             if (result.status.name == "ok") {
+                $option = '<option value="All" selected>All Departments</option>';
+                $("#DepartmentFilter").empty().append($option); 
                 $x = result.len;
                 for (let index = 0; index < $x; index++) {
                     $('#DepartmentFilter').append($('<option>', {
@@ -27,6 +58,79 @@ $(document).ready(function(){
             console.log(errorThrown);
         }
     });
+}
+function updateDepartmentFilter($location){
+    
+    $.ajax({
+        url: "PHP/GetDepartmentsPerFilter.PHP",
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            location: $location
+        },
+        success: function(result) {
+            console.log(result);
+
+            if (result.status.name == "ok") {
+                $option = '<option value="All" selected>All Departments</option>';
+                $("#DepartmentFilter").empty().append($option); 
+                $x = result.len;
+                for (let index = 0; index < $x; index++) {
+                    
+                    $('#DepartmentFilter').append($('<option>', {
+                    value: result.data[index]["id"],
+                    text: result.data[index]["name"]
+                }));
+                $('#addContactDepartment').append($('<option>', {
+                    value: result.data[index]["id"],
+                    text: result.data[index]["name"]
+                }));
+                }
+
+                
+            }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+}
+function filterContactsByLocation($location){
+    $.ajax({
+        url: "PHP/GetContactsPerLFilter.PHP",
+        type: 'GET',
+        dataType: 'json',
+        data:{
+            location: $location
+        },
+        success: function(result) {
+            console.log(result);
+
+            if (result.status.name == "ok") {
+                $("#contacts").empty()
+                $x = result.len;
+                for (let index = 0; index < $x; index++) {
+                    console.log(result.data[index]);
+                    $contact = " <div class='card border-dark mb-3 contact'><div class='card-header'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</div><div class='card-body text-dark'><h5 class='card-title'>"+result.data[index]['jobTitle']+"</h5><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i></a> "+result.data[index]['email']+"<br>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
+                   
+                    
+                     $('#contacts').append($($contact));
+                    
+                }
+
+                
+            }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+}
+$(document).ready(function(){
+    GetAllContacts();
+    GetAllDepartments();
     $.ajax({
         url: "PHP/GetLocations.PHP",
         type: 'GET',
@@ -45,32 +149,6 @@ $(document).ready(function(){
                     value: result.data[index]["id"],
                     text: result.data[index]["name"]
                 }));
-                    
-                }
-
-                
-            }
-        
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log(errorThrown);
-        }
-    });
-    $.ajax({
-        url: "PHP/GetAllContacts.PHP",
-        type: 'GET',
-        dataType: 'json',
-        success: function(result) {
-            
-
-            if (result.status.name == "ok") {
-                $x = result.len;
-                for (let index = 0; index < $x; index++) {
-                    console.log(result.data[index]);
-                    $contact = " <div class='card border-dark mb-3 contact'><div class='card-header'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</div><div class='card-body text-dark'><h5 class='card-title'>"+result.data[index]['jobTitle']+"</h5><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i></a> "+result.data[index]['email']+"<br>"+result.data[index]['department']+"</p></div></div>";
-                   
-                    
-                     $('#contacts').append($($contact));
                     
                 }
 
@@ -146,7 +224,6 @@ $("#editDropDown").change(function(){
     // $("#exampleModal").modal('toggle');
 })
 $("#addDropDown").change(function(){
-    console.log($(this).val());
     $($(this).val()).modal('toggle');
 })
 $("#addLocationConfirm").click(function(){
@@ -232,3 +309,25 @@ $("#addContactConfirm").click(function(){
         }
     });
 })
+$("#LocationFilter").change(function(){
+    $location = $(this).val();
+    if($location === "All"){
+        GetAllDepartments();
+        GetAllContacts();
+    }else{
+        updateDepartmentFilter($location);
+        filterContactsByLocation($location);
+    }
+})
+
+$("#DepartmentFilter").change(function(){
+    $department = $(this).val();
+    
+    if($department === "All"){
+        GetAllContacts();
+    }else{
+        filterContactsByDepartment($department);
+    }
+})
+
+
