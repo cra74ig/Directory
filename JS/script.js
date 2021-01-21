@@ -4,14 +4,14 @@ function GetAllContacts(){
         type: 'GET',
         dataType: 'json',
         success: function(result) {
-            
+            console.log(result);
 
             if (result.status.name == "ok") {
                 $("#contacts").empty()
                 $x = result.len;
                 for (let index = 0; index < $x; index++) {
-                    console.log(result.data[index]);
-                    $contact = " <div class='card border-dark mb-3 contact'><div class='card-header'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</div><div class='card-body text-dark'><h5 class='card-title'>"+result.data[index]['jobTitle']+"</h5><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i></a> "+result.data[index]['email']+"<br>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
+                    
+                    $contact = " <div class='card border-dark mb-3 contact' id='"+result.data[index]['id']+"' onclick='selectedContact'><div class='card-header'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</div><div class='card-body text-dark'><h5 class='card-title'>"+result.data[index]['jobTitle']+"</h5><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i></a> "+result.data[index]['email']+"<br>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
                    
                     
                      $('#contacts').append($($contact));
@@ -69,7 +69,7 @@ function updateDepartmentFilter($location){
             location: $location
         },
         success: function(result) {
-            console.log(result);
+            
 
             if (result.status.name == "ok") {
                 $option = '<option value="All" selected>All Departments</option>';
@@ -105,7 +105,39 @@ function filterContactsByLocation($location){
             location: $location
         },
         success: function(result) {
-            console.log(result);
+            
+
+            if (result.status.name == "ok") {
+                $("#contacts").empty()
+                $x = result.len;
+                for (let index = 0; index < $x; index++) {
+                    console.log(result.data[index]);
+                    $contact = " <div class='card border-dark mb-3 contact'><div class='card-header'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</div><div class='card-body text-dark'><h5 class='card-title'>"+result.data[index]['jobTitle']+"</h5><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i></a> "+result.data[index]['email']+"<br>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
+                   
+                    
+                     $('#contacts').append($($contact));
+                    
+                }
+
+                
+            }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+}
+function filterContactsByDepartment($department){
+    $.ajax({
+        url: "PHP/GetContactsPerDFilter.PHP",
+        type: 'GET',
+        dataType: 'json',
+        data:{
+            department: $department
+        },
+        success: function(result) {
+            
 
             if (result.status.name == "ok") {
                 $("#contacts").empty()
@@ -330,4 +362,22 @@ $("#DepartmentFilter").change(function(){
     }
 })
 
-
+$("#searchbar").keyup(function(){
+    $search = $(this).val();
+    console.log($search);
+    $('.contact').each(function(){
+        // console.log($(this));
+        
+        if(($(this)[0]['innerText'].toUpperCase()).includes($search.toUpperCase())){
+            console.log("V");
+            $(this).removeClass("inActive");
+            
+            
+        }else{
+            console.log("N");
+            
+            $(this).addClass("inActive");
+        }
+    });
+    
+})

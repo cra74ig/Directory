@@ -51,6 +51,10 @@ select{
 .active{
     visibility: visible;
 }
+.inActive{
+    display: none;
+}
+
 h1{
     text-align: center;
 }
