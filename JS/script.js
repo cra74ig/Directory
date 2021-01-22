@@ -48,6 +48,7 @@ function GetAllDepartments(){
                     value: result.data[index]["id"],
                     text: result.data[index]["name"]
                 }));
+                $('#delDepartmentList').append('<li><label for='+result.data[index]["id"]+'>'+result.data[index]["name"]+'</label><input type=image class="btn" src="Images/icons8-trash-24.png" alt="delete" onclick= "deleteDepartment('+result.data[index]["id"]+'); return false">'+'</input></li>');
                 }
 
                 
@@ -160,6 +161,73 @@ function filterContactsByDepartment($department){
         }
     });
 }
+function deleteLocation($location){
+    $.ajax({
+        url: "PHP/DelLocation.PHP",
+        type: 'POST',
+        dataType: 'json',
+        data:{
+            location: $location
+        },
+        success: function(result) {
+            
+
+            if (result.status.name == "ok") {
+                alert("Location deleted");
+                location.reload()
+            }else if(result.status.name == "Department Found"){
+                $x = result.len;
+                $text = "Cannot Delete Departments still attached: ";
+                for (let index = 0; index < $x; index++) { 
+                    $text = $text + "\n" + result.data[index]["name"];
+                }
+                alert($text);
+                
+            }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+    
+    
+    
+}
+function deleteDepartment($department){
+    console.log("in function")
+    $.ajax({
+        url: "PHP/DelDepartment.PHP",
+        type: 'POST',
+        dataType: 'json',
+        data:{
+            department: $department
+        },
+        success: function(result) {
+            console.log(result);
+
+            if (result.status.name == "ok") {
+                alert("Department deleted");
+                location.reload()
+            }else if(result.status.name == "Contact Found"){
+                $x = result.len;
+                $text = "Cannot Delete Contacts still attached: ";
+                for (let index = 0; index < $x; index++) { 
+                    $text = $text + "\n" + result.data[index]["FirstName"] + "," + result.data[index]["LastName"];
+                }
+                alert($text);
+                
+            }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+    
+    
+    
+}
 $(document).ready(function(){
     GetAllContacts();
     GetAllDepartments();
@@ -181,6 +249,7 @@ $(document).ready(function(){
                     value: result.data[index]["id"],
                     text: result.data[index]["name"]
                 }));
+                $('#delLocationList').append('<li><label for='+result.data[index]["id"]+'>'+result.data[index]["name"]+'</label><input type=image class="btn" src="Images/icons8-trash-24.png" alt="delete" onclick= "deleteLocation('+result.data[index]["id"]+'); return false">'+'</input></li>');
                     
                 }
 
@@ -256,6 +325,9 @@ $("#editDropDown").change(function(){
     // $("#exampleModal").modal('toggle');
 })
 $("#addDropDown").change(function(){
+    $($(this).val()).modal('toggle');
+})
+$("#deleteDropDown").change(function(){
     $($(this).val()).modal('toggle');
 })
 $("#addLocationConfirm").click(function(){
@@ -381,3 +453,6 @@ $("#searchbar").keyup(function(){
     });
     
 })
+// function selectedContact(){
+//     alert("test");
+// }

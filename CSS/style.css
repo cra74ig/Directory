@@ -84,3 +84,6 @@ footer{
 .contact{
     width: 50vh;
 }
+ul{
+    list-style-type: none;
+}
