@@ -392,11 +392,7 @@ $("#addDropDown").change(function(){
     $($(this).val()).modal('toggle');
 })
 $("#deleteDropDown").change(function(){
-    if($(this).val() === "#delContact"){
-        deleteContact();
-    }else{
-        $($(this).val()).modal('toggle');
-    }
+    $($(this).val()).modal('toggle');
 })
 $("#addLocationConfirm").click(function(){
     $name = $("#addLocationName").val()
