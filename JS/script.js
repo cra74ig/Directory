@@ -1,17 +1,17 @@
+contactsToDelete = [];
 function GetAllContacts(){
     $.ajax({
         url: "PHP/GetAllContacts.PHP",
         type: 'GET',
         dataType: 'json',
         success: function(result) {
-            console.log(result);
 
             if (result.status.name == "ok") {
                 $("#contacts").empty()
                 $x = result.len;
                 for (let index = 0; index < $x; index++) {
                     
-                    $contact = " <div class='card border-dark mb-3 contact' id='"+result.data[index]['id']+"' onclick='selectedContact'><div class='card-header'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</div><div class='card-body text-dark'><h5 class='card-title'>"+result.data[index]['jobTitle']+"</h5><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i></a> "+result.data[index]['email']+"<br>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
+                    $contact = " <div class='card text-white bg-dark mb-3 contact' id='"+result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><div class='card-header'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</div><div class='card-body text-white'><h5 class='card-title'>"+result.data[index]['jobTitle']+"</h5><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i></a> "+result.data[index]['email']+"<br>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
                    
                     
                      $('#contacts').append($($contact));
@@ -112,7 +112,6 @@ function filterContactsByLocation($location){
                 $("#contacts").empty()
                 $x = result.len;
                 for (let index = 0; index < $x; index++) {
-                    console.log(result.data[index]);
                     $contact = " <div class='card border-dark mb-3 contact'><div class='card-header'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</div><div class='card-body text-dark'><h5 class='card-title'>"+result.data[index]['jobTitle']+"</h5><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i></a> "+result.data[index]['email']+"<br>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
                    
                     
@@ -144,7 +143,6 @@ function filterContactsByDepartment($department){
                 $("#contacts").empty()
                 $x = result.len;
                 for (let index = 0; index < $x; index++) {
-                    console.log(result.data[index]);
                     $contact = " <div class='card border-dark mb-3 contact'><div class='card-header'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</div><div class='card-body text-dark'><h5 class='card-title'>"+result.data[index]['jobTitle']+"</h5><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i></a> "+result.data[index]['email']+"<br>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
                    
                     
@@ -195,7 +193,7 @@ function deleteLocation($location){
     
 }
 function deleteDepartment($department){
-    console.log("in function")
+    
     $.ajax({
         url: "PHP/DelDepartment.PHP",
         type: 'POST',
@@ -204,7 +202,7 @@ function deleteDepartment($department){
             department: $department
         },
         success: function(result) {
-            console.log(result);
+            
 
             if (result.status.name == "ok") {
                 alert("Department deleted");
@@ -213,7 +211,7 @@ function deleteDepartment($department){
                 $x = result.len;
                 $text = "Cannot Delete Contacts still attached: ";
                 for (let index = 0; index < $x; index++) { 
-                    $text = $text + "\n" + result.data[index]["FirstName"] + "," + result.data[index]["LastName"];
+                    $text = $text + "\n" + result.data[index]["FirstName"] + ", " + result.data[index]["LastName"];
                 }
                 alert($text);
                 
@@ -228,6 +226,73 @@ function deleteDepartment($department){
     
     
 }
+function deleteContact(){
+    $contacts = window.contactsToDelete.toString();
+    $.ajax({
+        url: "PHP/DelContact.PHP",
+        type: 'POST',
+        dataType: 'json',
+        data:{
+            contacts: $contacts
+        },
+        success: function(result) {
+            
+
+            if (result.status.name == "ok") {
+                alert("Contacts deleted");
+                location.reload()
+            }           
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+    
+    
+    
+}
+function cancelMultiContact(){
+    el = document.getElementsByClassName("border-danger");
+    console.log(el[0]);
+    for (let index = 0; index < el.length; index++) {
+        $(el[index].id).removeClass("border-danger");
+        
+    }
+    
+    window.contactsToDelete = [];
+    $("#deleteMultiContacts").removeClass("active");
+    $("#deleteMultiContacts").addClass("inActive");
+    console.log(window.contactsToDelete);
+}
+function selectedContact(id){
+    if($("#deleteMultiContacts").hasClass("inActive")){
+        $("#deleteMultiContacts").removeClass("inActive");
+        $("#deleteMultiContacts").addClass("active");
+    }
+     
+    if($("#"+id).hasClass("border-danger")){
+       $("#"+id).removeClass("border-danger");
+       for (let index = 0; index < window.contactsToDelete.length; index++) {
+           if( window.contactsToDelete[index] === id){
+               window.contactsToDelete.splice(index,1);
+               
+           };
+       }
+       if(window.contactsToDelete.length === 0){
+        $("#deleteMultiContacts").removeClass("active");
+        $("#deleteMultiContacts").addClass("inActive");
+       }
+    }else{
+       $("#"+id).addClass("border-danger");
+    
+       window.contactsToDelete.push(id);
+       
+       console.log(window.contactsToDelete.toString());
+  
+    }
+}
+
 $(document).ready(function(){
     GetAllContacts();
     GetAllDepartments();
@@ -321,14 +386,17 @@ $("#delete").click(function(){
     }
 });
 $("#editDropDown").change(function(){
-    // console.log($(this).val());
-    // $("#exampleModal").modal('toggle');
+    //$($(this).val()).modal('toggle');
 })
 $("#addDropDown").change(function(){
     $($(this).val()).modal('toggle');
 })
 $("#deleteDropDown").change(function(){
-    $($(this).val()).modal('toggle');
+    if($(this).val() === "#delContact"){
+        deleteContact();
+    }else{
+        $($(this).val()).modal('toggle');
+    }
 })
 $("#addLocationConfirm").click(function(){
     $name = $("#addLocationName").val()
@@ -370,7 +438,7 @@ $("#addDepartmentConfirm").click(function(){
             
 
             if (result.status.name == "ok") {
-                alert("Location Added");
+                alert("Department Added");
                 location.reload();
                 
             }
@@ -402,7 +470,7 @@ $("#addContactConfirm").click(function(){
             
 
             if (result.status.name == "ok") {
-                alert("Location Added");
+                alert("Department Added");
                 location.reload();
                 
             }
@@ -436,23 +504,15 @@ $("#DepartmentFilter").change(function(){
 
 $("#searchbar").keyup(function(){
     $search = $(this).val();
-    console.log($search);
     $('.contact').each(function(){
-        // console.log($(this));
         
         if(($(this)[0]['innerText'].toUpperCase()).includes($search.toUpperCase())){
-            console.log("V");
             $(this).removeClass("inActive");
             
             
         }else{
-            console.log("N");
-            
             $(this).addClass("inActive");
         }
     });
     
 })
-// function selectedContact(){
-//     alert("test");
-// }

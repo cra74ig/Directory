@@ -57,11 +57,14 @@
                 </select>
                 <select id="deleteDropDown" class="dropDownOptions">
                     <option disabled selected>Delete...</option>
-                    <option value="#delContact">Delete contact</option>
                     <option value="#delDepartment">Delete department</option>
                     <option value="#delLocation">Delete location</option>
                 </select>
             </div>
+        </div>
+        <div id="deleteMultiContacts" class="inActive">
+          <label for="contactDelete">Delete Selected contacts</label>
+          <button for="contactDelete" onclick="deleteContact()" type="button">confirm</button><button onclick="cancelMultiContact()" type="button">cancel</button>
         </div>
         <div class="modal" tabindex="-1" id="addContact">
             <div class="modal-dialog">

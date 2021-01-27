@@ -12,7 +12,7 @@
     
   } else {
     
-    $query = 'SELECT FirstName, LastName, departmentID FROM `personnel`';
+    $query = 'SELECT FirstName, LastName, departmentID FROM `personnel` WHERE departmentID = '. $_REQUEST["department"];
     $result=$link->query($query);
     if($result){
         // echo '<p>success</p>';
