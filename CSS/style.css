@@ -7,18 +7,26 @@ html{
     width: 100%;
     height: fit-content;
 }
-#search{
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-} 
-#searchbar{
-    background-image: url("../Images/icons8-search-client-24.png");
-    background-repeat: no-repeat;
-    height:30px;
-    padding-left:25px; 
-    background-color: white;
-    width: 100%;
+@media (max-width: 450px){
+    #searchbar{
+        background-image: url("../Images/icons8-search-client-24.png");
+        background-repeat: no-repeat;
+        height:30px;
+        background-color: white;
+        width: 100%;
+    }
+    .filters{
+        width: 32%;
+    }
+}
+@media (min-width:450px){
+    #searchbar{
+        background-image: url("../Images/icons8-search-client-24.png");
+        background-repeat: no-repeat;
+        height:30px;
+        background-color: white;
+        width: 30%;
+    }
 }
 input{
     color:black; 
@@ -29,21 +37,22 @@ select{
 .admin{
     color: white;
 }
-#adminControls{
-    position: fixed;
-    right: 0;
+.adminControls{
+    /* position: fixed; */
+    float: right;
     background-color: #333;
 }
-#dropDowns{
+/* #dropDowns{
     position: fixed;
     right: 0;
     background-color: #333;
     z-index: 1;
-}
+} */
 .dropDownOptions{
-    position: absolute;
+    position: fixed;
     right: 0;
     visibility: hidden;
+    z-index: 1;
 }
 /* button:hover{
     background-color: green;
@@ -82,10 +91,23 @@ footer{
     max-height: 75vh;
     /* margin:1vh; */
 }
-.contact{
-    width: 100%;
-    /* margin-right: 0.5vh; */
-    /* background-color: indigo; */
+@media (max-width: 525px){
+    .contact{
+        width: 50%;
+        /* margin-right: 0.5vh; */
+        /* background-color: indigo; */
+    }
+    .card-img-top{
+        height: 50%;
+    }
+}
+@media (min-width: 525px){
+    .contact{
+        width: 30%;
+        /* margin-right: 0.5vh; */
+        /* background-color: indigo; */
+    }
+    
 }
 .border-danger{
     border-width: 0.5vh;

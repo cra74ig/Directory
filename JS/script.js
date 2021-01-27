@@ -10,8 +10,8 @@ function GetAllContacts(){
                 $("#contacts").empty()
                 $x = result.len;
                 for (let index = 0; index < $x; index++) {
-                    
-                    $contact = " <div class='card text-white bg-dark mb-3 contact' id='"+result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><div class='card-header'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</div><div class='card-body text-white'><h5 class='card-title'>"+result.data[index]['jobTitle']+"</h5><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i></a> "+result.data[index]['email']+"<br>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
+                    $imgPath="Images/blank-profile-picture-973460_640.png";
+                    $contact = " <div class='card contact' id='"+result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><img class='card-img-top' src='"+$imgPath+"' alt='Card image cap'><div class='card-body'> <h5 class='card-title'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</h5><p class='card-text>"+result.data[index]['jobTitle']+"</p><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i>"+result.data[index]['email']+"</a><p>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
                    
                     
                      $('#contacts').append($($contact));
@@ -112,7 +112,7 @@ function filterContactsByLocation($location){
                 $("#contacts").empty()
                 $x = result.len;
                 for (let index = 0; index < $x; index++) {
-                    $contact = " <div class='card border-dark mb-3 contact'><div class='card-header'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</div><div class='card-body text-dark'><h5 class='card-title'>"+result.data[index]['jobTitle']+"</h5><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i></a> "+result.data[index]['email']+"<br>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
+                    $contact = " <div class='card text-white bg-dark mb-3 contact' id='"+result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><div class='card-header'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</div><div class='card-body text-white'><h5 class='card-title'>"+result.data[index]['jobTitle']+"</h5><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i></a> "+result.data[index]['email']+"<br>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
                    
                     
                      $('#contacts').append($($contact));
@@ -143,7 +143,7 @@ function filterContactsByDepartment($department){
                 $("#contacts").empty()
                 $x = result.len;
                 for (let index = 0; index < $x; index++) {
-                    $contact = " <div class='card border-dark mb-3 contact'><div class='card-header'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</div><div class='card-body text-dark'><h5 class='card-title'>"+result.data[index]['jobTitle']+"</h5><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i></a> "+result.data[index]['email']+"<br>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
+                    $contact = " <div class='card text-white bg-dark mb-3 contact' id='"+result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><div class='card-header'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</div><div class='card-body text-white'><h5 class='card-title'>"+result.data[index]['jobTitle']+"</h5><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i></a> "+result.data[index]['email']+"<br>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
                    
                     
                      $('#contacts').append($($contact));

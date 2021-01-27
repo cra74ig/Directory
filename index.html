@@ -20,29 +20,23 @@
         <div id="top-menu">
             <h1>Company Directory</h1>
             <form id=filters>
-                <label for="LocationFilter">Location</label>
-                <select name="LocationFilter" id="LocationFilter">
+               <input name="searchbar" type="search" id="searchbar"></input>
+                <!-- <label for="LocationFilter">Location</label> -->
+                <select name="LocationFilter" id="LocationFilter" class="filters">
                     <option value="All" selected>All Locations</option>
                 </select>
-                <br>
-                <label for="DepartmentFilter">Department</label>
-                <select name="DepartmentFilter" id="DepartmentFilter">
+                
+                <!-- <label for="DepartmentFilter">Department</label> -->
+                <select name="DepartmentFilter" id="DepartmentFilter" class="filters">
                     <option value="All Departments" selected>All Departments</option>
                 </select>
-            </form>
-                <div id="search">
-                    
-                    <input name="searchbar" type="search" id="searchbar"></input>
-                </div>
+                <button type="button" class="btn adminControls" id="add"><i class="fas fa-plus-circle admin"></i></button>
+                <button type="button" class="btn adminControls" id="edit"><i class="fas fa-edit admin"></i></button>
+                <button type="button" class="btn adminControls" id="delete"><i class="fas fa-trash-alt admin"></i></button>
+              </form>
+              <br>
             
-            <div id="adminControls">
-                <button class="btn" id="add"><i class="fas fa-plus-circle admin"></i></button>
-                <button class="btn" id="edit"><i class="fas fa-edit admin"></i></button>
-                <button class="btn" id="delete"><i class="fas fa-trash-alt admin"></i></button>
-            </div>
-            <br>
-            <br>
-            <div id="dropDowns">
+            <!-- <div id="dropDowns"> -->
                 <select id="addDropDown" class="dropDownOptions">
                     <option disabled selected>Add...</option>
                     <option value="#addContact">Add contact</option>
@@ -60,8 +54,10 @@
                     <option value="#delDepartment">Delete department</option>
                     <option value="#delLocation">Delete location</option>
                 </select>
-            </div>
+            <!-- </div> -->
+            <!-- <div id="adminControls"> -->
         </div>
+            
         <div id="deleteMultiContacts" class="inActive">
           <label for="contactDelete">Delete Selected contacts</label>
           <button for="contactDelete" onclick="deleteContact()" type="button">confirm</button><button onclick="cancelMultiContact()" type="button">cancel</button>
