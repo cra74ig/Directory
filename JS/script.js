@@ -470,7 +470,7 @@ $("#addContactConfirm").click(function(){
             
 
             if (result.status.name == "ok") {
-                alert("Department Added");
+                alert("Contact Added");
                 location.reload();
                 
             }

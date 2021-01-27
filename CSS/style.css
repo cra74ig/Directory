@@ -80,10 +80,11 @@ footer{
 #contacts{
     width: 100%;
     max-height: 75vh;
-    margin:1vh;
+    /* margin:1vh; */
 }
 .contact{
-    width: 50vh;
+    width: 100%;
+    /* margin-right: 0.5vh; */
     /* background-color: indigo; */
 }
 .border-danger{
