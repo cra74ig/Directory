@@ -10,8 +10,9 @@ function GetAllContacts(){
                 $("#contacts").empty()
                 $x = result.len;
                 for (let index = 0; index < $x; index++) {
+                    
                     $imgPath="Images/blank-profile-picture-973460_640.png";
-                    $contact = " <div class='card contact' id='"+result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><img class='card-img-top' src='"+$imgPath+"' alt='Card image cap'><div class='card-body'> <h5 class='card-title'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</h5><p class='card-text>"+result.data[index]['jobTitle']+"</p><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i>"+result.data[index]['email']+"</a><p>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
+                    $contact = " <div class='card contact' id='"+result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><img class='card-img-top' src='"+$imgPath+"' alt='Card image cap'><div class='card-body'> <h5 class='card-title'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "<button type='button' class='btn adminControls' onclick= editContact("+result.data[index]['id']+", "+result.data[index]['jobTitle']+", "+result.data[index]['email']+", "+result.data[index]['department']+", "+result.data[index]['firstName']+ ", " +result.data[index]['lastName'] + ")><i class='fas fa-edit admin'></i></button></h5><p class='card-text'>"+result.data[index]['jobTitle']+"</p><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i> "+result.data[index]['email']+"</a></p><p>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
                    
                     
                      $('#contacts').append($($contact));
@@ -112,7 +113,7 @@ function filterContactsByLocation($location){
                 $("#contacts").empty()
                 $x = result.len;
                 for (let index = 0; index < $x; index++) {
-                    $contact = " <div class='card text-white bg-dark mb-3 contact' id='"+result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><div class='card-header'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</div><div class='card-body text-white'><h5 class='card-title'>"+result.data[index]['jobTitle']+"</h5><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i></a> "+result.data[index]['email']+"<br>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
+                    $contact = " <div class='card contact' id='"+result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><img class='card-img-top' src='"+$imgPath+"' alt='Card image cap'><div class='card-body'> <h5 class='card-title'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</h5><p class='card-text'>"+result.data[index]['jobTitle']+"</p><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i> "+result.data[index]['email']+"</a></p><p>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
                    
                     
                      $('#contacts').append($($contact));
@@ -143,7 +144,7 @@ function filterContactsByDepartment($department){
                 $("#contacts").empty()
                 $x = result.len;
                 for (let index = 0; index < $x; index++) {
-                    $contact = " <div class='card text-white bg-dark mb-3 contact' id='"+result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><div class='card-header'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</div><div class='card-body text-white'><h5 class='card-title'>"+result.data[index]['jobTitle']+"</h5><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i></a> "+result.data[index]['email']+"<br>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
+                    $contact = " <div class='card contact' id='"+result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><img class='card-img-top' src='"+$imgPath+"' alt='Card image cap'><div class='card-body'> <h5 class='card-title'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</h5><p class='card-text'>"+result.data[index]['jobTitle']+"</p><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i> "+result.data[index]['email']+"</a></p><p>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
                    
                     
                      $('#contacts').append($($contact));
@@ -292,7 +293,15 @@ function selectedContact(id){
   
     }
 }
-
+function editContact(id, jobTitle, email, department, firstName, lastName){
+    console.log(id, jobTitle, email, department, firstName, lastName);
+    $("#editFirstName").val = firstName;
+    $("#editSurname").val = lastName;
+    $("#editEmail").val = Email;
+    $("#editJobTitle").val = jobTitle;
+    $("#editContactDepartment").val = department;
+    $("#editContact").modal('toggle');
+}
 $(document).ready(function(){
     GetAllContacts();
     GetAllDepartments();
@@ -331,62 +340,53 @@ $("#add").click(function(){
     $("#addDropDown").prop("selectedIndex", 0);
     if ($("#editDropDown").hasClass("active")){
         $("#editDropDown").removeClass("active");
-        $("#edit").css("background-color", "#333");
-        
     }
     if ($("#deleteDropDown").hasClass("active")){
         $("#deleteDropDown").removeClass("active");
-        $("#delete").css("background-color", "#333");
-        
     }
     if ($("#addDropDown").hasClass("active")){
-        
         $("#addDropDown").removeClass("active");
-        $(this).css("background-color", "#333");
-        
     }else{
         $("#addDropDown").addClass("active");
-        $(this).css("background-color", "green");
     }
 });
 $("#edit").click(function(){
     $("#editDropDown").prop("selectedIndex", 0);
     if ($("#addDropDown").hasClass("active")){
         $("#addDropDown").removeClass("active");
-        $("#add").css("background-color", "#333");
     }
     if ($("#deleteDropDown").hasClass("active")){
         $("#deleteDropDown").removeClass("active");
-        $("#delete").css("background-color", "#333");     
+        
     }
     if ($("#editDropDown").hasClass("active")){
         $("#editDropDown").removeClass("active");
-        $(this).css("background-color", "#333");  
+        
     }else{
         $("#editDropDown").addClass("active");
-        $(this).css("background-color", "green");
+        
     }
 });
 $("#delete").click(function(){
     $("#deleteDropDown").prop("selectedIndex", 0);
     if ($("#addDropDown").hasClass("active")){
         $("#addDropDown").removeClass("active");
-        $("#add").css("background-color", "#333");
+        
     }
     if ($("#editDropDown").hasClass("active")){
         $("#editDropDown").removeClass("active");
-        $("#edit").css("background-color", "#333");
+        
     }
     if ($("#deleteDropDown").hasClass("active")){
         $("#deleteDropDown").removeClass("active");
-        $(this).css("background-color", "#333");
+        
     }else{
         $("#deleteDropDown").addClass("active");
-        $(this).css("background-color", "green");
+        
     }
 });
 $("#editDropDown").change(function(){
-    //$($(this).val()).modal('toggle');
+    $($(this).val()).modal('toggle');
 })
 $("#addDropDown").change(function(){
     $($(this).val()).modal('toggle');

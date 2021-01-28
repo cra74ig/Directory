@@ -13,12 +13,11 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-        <link rel="stylesheet" href="CSS/Style.css">
+        <link rel="stylesheet" href="CSS/Style.css" type="text/css">
         
     </head>
     <body>
         <div id="top-menu">
-            <h1>Company Directory</h1>
             <form id=filters>
                <input name="searchbar" type="search" id="searchbar"></input>
                 <!-- <label for="LocationFilter">Location</label> -->
@@ -30,9 +29,9 @@
                 <select name="DepartmentFilter" id="DepartmentFilter" class="filters">
                     <option value="All Departments" selected>All Departments</option>
                 </select>
-                <button type="button" class="btn adminControls" id="add"><i class="fas fa-plus-circle admin"></i></button>
-                <button type="button" class="btn adminControls" id="edit"><i class="fas fa-edit admin"></i></button>
                 <button type="button" class="btn adminControls" id="delete"><i class="fas fa-trash-alt admin"></i></button>
+                <button type="button" class="btn adminControls" id="edit"><i class="fas fa-edit admin"></i></button>
+                <button type="button" class="btn adminControls" id="add"><i class="fas fa-plus-circle admin"></i></button>
               </form>
               <br>
             
@@ -97,6 +96,41 @@
               </div>
             </div>
           </div>
+          <div class="modal" tabindex="-1" id="editContact">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Edit Contact</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                      <input class="modalForm" type="text" id="editFirstName" placeholder="First name" required>
+                      <br>
+                      <br>
+                      <input class="modalForm" type="text" id="editSurname" placeholder="Surname" required>
+                      <br>
+                      <br>
+                      <input class="modalForm" type="text" id="editEmail" placeholder="Example@domain.com" required>
+                      <br>
+                      <br>
+                      <select class="modalForm" id="editContactDepartment" required>
+                          <option disabled selected value="">Department</option>
+                      </select>
+                      <br>
+                      <br>
+                      <input class="modalForm" type="text" id="editJobTitle" placeholder="Job title" required>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <input type="submit" class="btn btn-primary" value="edit Contact" id="editContactConfirm">
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="modal" tabindex="-1" id="addDepartment">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -123,6 +157,32 @@
               </div>
             </div>
           </div>
+          <div class="modal" tabindex="-1" id="editDepartment">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Edit Department</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                      <input class="modalForm" type="text" id="editDepartmentName" placeholder="Department name" required>
+                      <br>
+                      <br>
+                      <select class="modalForm" id="editDepartmentLocation" required>
+                          <option disabled selected value="">Location</option>
+                      </select>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <input type="submit" class="btn btn-primary" value="edit Department" id="editDepartmentConfirm">
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="modal" tabindex="-1" id="addLocation">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -140,6 +200,27 @@
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   <input type="submit" class="btn btn-primary" value="Add Location" id="addLocationConfirm">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal" tabindex="-1" id="editLocation">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Edit Location</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                      <input class="modalForm" type="text" id="editLocationName" placeholder="Location name" required>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <input type="submit" class="btn btn-primary" value="edit Location" id="editLocationConfirm">
                 </div>
               </div>
             </div>

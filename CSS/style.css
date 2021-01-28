@@ -2,18 +2,20 @@ html{
     font-family: 'Courier New', Courier, monospace;
 }
 #top-menu{
-    background-color: #333;
+    background-color: rgb(156, 155, 155);
     color: white;
     width: 100%;
     height: fit-content;
 }
-@media (max-width: 450px){
+@media only screen and (max-width: 450px){
     #searchbar{
         background-image: url("../Images/icons8-search-client-24.png");
         background-repeat: no-repeat;
+        background-position: right;
         height:30px;
         background-color: white;
         width: 100%;
+        
     }
     .filters{
         width: 32%;
@@ -22,10 +24,12 @@ html{
 @media (min-width:450px){
     #searchbar{
         background-image: url("../Images/icons8-search-client-24.png");
+        background-position: right;
         background-repeat: no-repeat;
         height:30px;
         background-color: white;
         width: 30%;
+        
     }
 }
 input{
@@ -40,7 +44,7 @@ select{
 .adminControls{
     /* position: fixed; */
     float: right;
-    background-color: #333;
+    background-color: rgb(156, 155, 155);
 }
 /* #dropDowns{
     position: fixed;
@@ -88,27 +92,43 @@ footer{
 }
 #contacts{
     width: 100%;
-    max-height: 75vh;
+    max-height: 90vh;
     /* margin:1vh; */
 }
-@media (max-width: 525px){
+@media (max-width: 420px){
+    .contact{
+        width: 75%;
+        margin-left:12.5%;
+        margin-right:12.5%;
+        height: 100%;
+    }
+    .card-img-top{
+        height: 20%;
+    }
+}
+
+@media only screen and (max-width: 640px) and (min-width: 425px){
     .contact{
         width: 50%;
-        /* margin-right: 0.5vh; */
-        /* background-color: indigo; */
+        
+        height: 100%;
+    }
+    .card-img-top{
+        height: 20%;
+    }
+}
+
+@media (min-width: 640px){
+    .contact{
+        width: 30%;
+        
     }
     .card-img-top{
         height: 50%;
     }
-}
-@media (min-width: 525px){
-    .contact{
-        width: 30%;
-        /* margin-right: 0.5vh; */
-        /* background-color: indigo; */
-    }
     
 }
+
 .border-danger{
     border-width: 0.5vh;
 }
@@ -116,5 +136,6 @@ ul{
     list-style-type: none;
 }
 #deleteMultiContacts{
-    align-items: center;
+    text-align:center;
+    background-color: rgba(212, 212, 131, 0.719);
 }
