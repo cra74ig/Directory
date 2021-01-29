@@ -12,7 +12,7 @@ function GetAllContacts(){
                 for (let index = 0; index < $x; index++) {
                     
                     $imgPath="Images/blank-profile-picture-973460_640.png";
-                    $contact = " <div class='card contact' id='"+result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><img class='card-img-top' src='"+$imgPath+"' alt='Card image cap'><div class='card-body'> <h5 class='card-title'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "<button type='button' class='btn adminControls' onclick= editContact("+result.data[index]['id']+", "+result.data[index]['jobTitle']+", "+result.data[index]['email']+", "+result.data[index]['department']+", "+result.data[index]['firstName']+ ", " +result.data[index]['lastName'] + ")><i class='fas fa-edit admin'></i></button></h5><p class='card-text'>"+result.data[index]['jobTitle']+"</p><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i> "+result.data[index]['email']+"</a></p><p>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
+                    $contact = " <div class='card contact' id='"+ result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><img class='card-img-top' src='"+$imgPath+"' alt='Card image cap'><div class='card-body'> <h5 class='card-title'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "<button type='button' class='btn adminControls' onclick= editContact("+result.data[index]['id']+",'"+encodeURIComponent(result.data[index]['jobTitle'])+"','"+result.data[index]['email']+"','"+encodeURIComponent(result.data[index]['departmentID'])+"','"+result.data[index]['firstName']+ "','" +result.data[index]['lastName'] +"')><i class='fas fa-edit admin'></i></button></h5><p class='card-text'>"+result.data[index]['jobTitle']+"</p><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i> "+result.data[index]['email']+"</a></p><p>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
                    
                     
                      $('#contacts').append($($contact));
@@ -46,6 +46,10 @@ function GetAllDepartments(){
                     text: result.data[index]["name"]
                 }));
                 $('#addContactDepartment').append($('<option>', {
+                    value: result.data[index]["id"],
+                    text: result.data[index]["name"]
+                }));
+                $('#editContactDepartment').append($('<option>', {
                     value: result.data[index]["id"],
                     text: result.data[index]["name"]
                 }));
@@ -113,7 +117,7 @@ function filterContactsByLocation($location){
                 $("#contacts").empty()
                 $x = result.len;
                 for (let index = 0; index < $x; index++) {
-                    $contact = " <div class='card contact' id='"+result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><img class='card-img-top' src='"+$imgPath+"' alt='Card image cap'><div class='card-body'> <h5 class='card-title'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</h5><p class='card-text'>"+result.data[index]['jobTitle']+"</p><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i> "+result.data[index]['email']+"</a></p><p>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
+                    $contact = " <div class='card contact' id='"+ result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><img class='card-img-top' src='"+$imgPath+"' alt='Card image cap'><div class='card-body'> <h5 class='card-title'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "<button type='button' class='btn adminControls' onclick= editContact("+result.data[index]['id']+",'"+encodeURIComponent(result.data[index]['jobTitle'])+"','"+result.data[index]['email']+"','"+encodeURIComponent(result.data[index]['department'])+"','"+result.data[index]['firstName']+ "','" +result.data[index]['lastName'] +"')><i class='fas fa-edit admin'></i></button></h5><p class='card-text'>"+result.data[index]['jobTitle']+"</p><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i> "+result.data[index]['email']+"</a></p><p>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
                    
                     
                      $('#contacts').append($($contact));
@@ -144,7 +148,7 @@ function filterContactsByDepartment($department){
                 $("#contacts").empty()
                 $x = result.len;
                 for (let index = 0; index < $x; index++) {
-                    $contact = " <div class='card contact' id='"+result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><img class='card-img-top' src='"+$imgPath+"' alt='Card image cap'><div class='card-body'> <h5 class='card-title'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "</h5><p class='card-text'>"+result.data[index]['jobTitle']+"</p><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i> "+result.data[index]['email']+"</a></p><p>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
+                    $contact = " <div class='card contact' id='"+ result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><img class='card-img-top' src='"+$imgPath+"' alt='Card image cap'><div class='card-body'> <h5 class='card-title'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "<button type='button' class='btn adminControls' onclick= editContact("+result.data[index]['id']+",'"+encodeURIComponent(result.data[index]['jobTitle'])+"','"+result.data[index]['email']+"','"+encodeURIComponent(result.data[index]['department'])+"','"+result.data[index]['firstName']+ "','" +result.data[index]['lastName'] +"')><i class='fas fa-edit admin'></i></button></h5><p class='card-text'>"+result.data[index]['jobTitle']+"</p><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i> "+result.data[index]['email']+"</a></p><p>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
                    
                     
                      $('#contacts').append($($contact));
@@ -254,10 +258,8 @@ function deleteContact(){
     
 }
 function cancelMultiContact(){
-    el = document.getElementsByClassName("border-danger");
-    console.log(el[0]);
-    for (let index = 0; index < el.length; index++) {
-        $(el[index].id).removeClass("border-danger");
+    for (let index = 0; index < window.contactsToDelete.length; index++) {
+        $("#"+window.contactsToDelete[index]).removeClass("border-danger");
         
     }
     
@@ -295,14 +297,17 @@ function selectedContact(id){
 }
 function editContact(id, jobTitle, email, department, firstName, lastName){
     console.log(id, jobTitle, email, department, firstName, lastName);
-    $("#editFirstName").val = firstName;
-    $("#editSurname").val = lastName;
-    $("#editEmail").val = Email;
-    $("#editJobTitle").val = jobTitle;
-    $("#editContactDepartment").val = department;
+    $("#editContactConfirm").attr('name',id);
+    $("#editFirstName").val(firstName);
+    $("#editSurname").val(lastName);
+    $("#editEmail").val(email);
+    $("#editJobTitle").val(decodeURIComponent(jobTitle));
+    $("#editContactDepartment").val(department);
     $("#editContact").modal('toggle');
 }
+
 $(document).ready(function(){
+    
     GetAllContacts();
     GetAllDepartments();
     $.ajax({
@@ -320,6 +325,10 @@ $(document).ready(function(){
                     text: result.data[index]["name"]
                 }));
                 $('#addDepartmentLocation').append($('<option>', {
+                    value: result.data[index]["id"],
+                    text: result.data[index]["name"]
+                }));
+                $('#editDepartmentLocation').append($('<option>', {
                     value: result.data[index]["id"],
                     text: result.data[index]["name"]
                 }));
@@ -474,6 +483,40 @@ $("#addContactConfirm").click(function(){
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);
+        }
+    });
+})
+$("#editContactConfirm").click(function(){
+    $firstName = $("#editFirstName").val();
+    $department = $("#editContactDepartment").val();
+    $surname = $("#editSurname").val();
+    $email = $("#editEmail").val();
+    $jobTitle = $("#editJobTitle").val();
+    $id = $("#editContactConfirm").attr('name');
+    $.ajax({
+        url: "PHP/editContact.PHP",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            firstName: $firstName,
+            department: $department,
+            lastName: $surname,
+            email: $email,
+            jobTitle: $jobTitle,
+            id: $id
+        },
+        success: function(result) {
+            console.log(result)
+
+            if (result.status.name == "ok") {
+                alert("Contact edited");
+                // location.reload();
+                
+            }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert(errorThrown);
         }
     });
 })

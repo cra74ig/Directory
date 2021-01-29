@@ -44,7 +44,6 @@
                 </select>
                 <select id="editDropDown" class="dropDownOptions">
                     <option disabled selected>Edit...</option>
-                    <option value="#editContact">Edit contact</option>
                     <option value="#editDepartment">Edit department</option>
                     <option value="#editLocation">Edit location</option>
                 </select>
@@ -71,7 +70,7 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form>
+                  <form action="#">
                       <input class="modalForm" type="text" id="addFirstName" placeholder="First name" required>
                       <br>
                       <br>
@@ -87,11 +86,11 @@
                       <br>
                       <br>
                       <input class="modalForm" type="text" id="addJobTitle" placeholder="Job title" required>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Add Contact" id="addContactConfirm">
+                      </div>
                   </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <input type="submit" class="btn btn-primary" value="Add Contact" id="addContactConfirm">
                 </div>
               </div>
             </div>
@@ -106,7 +105,7 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form>
+                  <form action="#">
                       <input class="modalForm" type="text" id="editFirstName" placeholder="First name" required>
                       <br>
                       <br>
@@ -122,11 +121,11 @@
                       <br>
                       <br>
                       <input class="modalForm" type="text" id="editJobTitle" placeholder="Job title" required>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="edit Contact" id="editContactConfirm"> 
+                      </div>
                   </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <input type="submit" class="btn btn-primary" value="edit Contact" id="editContactConfirm">
                 </div>
               </div>
             </div>
@@ -148,11 +147,11 @@
                       <select class="modalForm" id="addDepartmentLocation" required>
                           <option disabled selected value="">Location</option>
                       </select>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Add Department" id="addDepartmentConfirm">
+                      </div>
                   </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <input type="submit" class="btn btn-primary" value="Add Department" id="addDepartmentConfirm">
                 </div>
               </div>
             </div>
@@ -174,12 +173,13 @@
                       <select class="modalForm" id="editDepartmentLocation" required>
                           <option disabled selected value="">Location</option>
                       </select>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="edit Department" id="editDepartmentConfirm">
+                      </div>
                   </form>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <input type="submit" class="btn btn-primary" value="edit Department" id="editDepartmentConfirm">
-                </div>
+               
               </div>
             </div>
           </div>
@@ -195,12 +195,13 @@
                 <div class="modal-body">
                   <form>
                       <input class="modalForm" type="text" id="addLocationName" placeholder="Location name" required>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Add Location" id="addLocationConfirm">
+                      </div>
                   </form>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <input type="submit" class="btn btn-primary" value="Add Location" id="addLocationConfirm">
-                </div>
+                
               </div>
             </div>
           </div>
@@ -216,12 +217,13 @@
                 <div class="modal-body">
                   <form>
                       <input class="modalForm" type="text" id="editLocationName" placeholder="Location name" required>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="edit Location" id="editLocationConfirm">
+                      </div>
                   </form>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <input type="submit" class="btn btn-primary" value="edit Location" id="editLocationConfirm">
-                </div>
+                
               </div>
             </div>
           </div>
