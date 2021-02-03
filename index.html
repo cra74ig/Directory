@@ -29,7 +29,6 @@
                 <select name="DepartmentFilter" id="DepartmentFilter" class="filters">
                     <option value="All Departments" selected>All Departments</option>
                 </select>
-                <button type="button" class="btn adminControls" id="delete"><i class="fas fa-trash-alt admin"></i></button>
                 <button type="button" class="btn adminControls" id="edit"><i class="fas fa-edit admin"></i></button>
                 <button type="button" class="btn adminControls" id="add"><i class="fas fa-plus-circle admin"></i></button>
               </form>
@@ -44,14 +43,10 @@
                 </select>
                 <select id="editDropDown" class="dropDownOptions">
                     <option disabled selected>Edit...</option>
-                    <option value="#editDepartment">Edit department</option>
-                    <option value="#editLocation">Edit location</option>
+                    <option value="#editDepartment">Edit departments</option>
+                    <option value="#editLocation">Edit locations</option>
                 </select>
-                <select id="deleteDropDown" class="dropDownOptions">
-                    <option disabled selected>Delete...</option>
-                    <option value="#delDepartment">Delete department</option>
-                    <option value="#delLocation">Delete location</option>
-                </select>
+                
             <!-- </div> -->
             <!-- <div id="adminControls"> -->
         </div>
@@ -140,7 +135,7 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form>
+                  <form action="#">
                       <input class="modalForm" type="text" id="addDepartmentName" placeholder="Department name" required>
                       <br>
                       <br>
@@ -167,19 +162,14 @@
                 </div>
                 <div class="modal-body">
                   <form>
-                      <input class="modalForm" type="text" id="editDepartmentName" placeholder="Department name" required>
+                    <ul id="editDepartmentList"></ul>
                       <br>
                       <br>
-                      <select class="modalForm" id="editDepartmentLocation" required>
-                          <option disabled selected value="">Location</option>
-                      </select>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="edit Department" id="editDepartmentConfirm">
                       </div>
                   </form>
                 </div>
-               
               </div>
             </div>
           </div>
@@ -193,7 +183,7 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form>
+                  <form action="#">
                       <input class="modalForm" type="text" id="addLocationName" placeholder="Location name" required>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -216,54 +206,13 @@
                 </div>
                 <div class="modal-body">
                   <form>
-                      <input class="modalForm" type="text" id="editLocationName" placeholder="Location name" required>
+                    <ul id="editLocationList"></ul>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="edit Location" id="editLocationConfirm">
                       </div>
                   </form>
                 </div>
                 
-              </div>
-            </div>
-          </div>
-          <div class="modal" tabindex="-1" id="delLocation">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Delete Location</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form>
-                      <ul id="delLocationList"></ul>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal" tabindex="-1" id="delDepartment">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Delete Department</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form>
-                      <ul id="delDepartmentList"></ul>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
               </div>
             </div>
           </div>

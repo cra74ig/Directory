@@ -35,10 +35,15 @@ function GetAllDepartments(){
         dataType: 'json',
         success: function(result) {
             
-
+           
             if (result.status.name == "ok") {
+                locations = (document.getElementById("LocationFilter").innerHTML).replace('<option value="All" selected="">All Locations</option>','')
                 $option = '<option value="All" selected>All Departments</option>';
                 $("#DepartmentFilter").empty().append($option); 
+                //makes sure no duplicates appear in lists or drop downs
+                $('#addContactDepartment').empty();
+                $('#editContactDepartment').empty();
+                $('#editDepartmentList').empty();
                 $x = result.len;
                 for (let index = 0; index < $x; index++) {
                     $('#DepartmentFilter').append($('<option>', {
@@ -53,8 +58,13 @@ function GetAllDepartments(){
                     value: result.data[index]["id"],
                     text: result.data[index]["name"]
                 }));
-                $('#delDepartmentList').append('<li><label for='+result.data[index]["id"]+'>'+result.data[index]["name"]+'</label><input type=image class="btn" src="Images/icons8-trash-24.png" alt="delete" onclick= "deleteDepartment('+result.data[index]["id"]+'); return false">'+'</input></li>');
-                }
+                
+                
+                $('#editDepartmentList').append('<li><input type="text" value="'+result.data[index]["name"]+'" id="editDepartment'+result.data[index]["id"]+'"></input><select id="editDepartmentLocation'+result.data[index]["id"]+'">'+locations+'</select><button type="button" onClick=editDepartment('+result.data[index]["id"]+')>Update</button><button type="button" onClick=deleteDepartment('+result.data[index]["id"]+')><i class="fas fa-trash-alt "></i></button></li>');
+                //sets location for drop down to be the current location for department
+                $("#editDepartmentLocation"+result.data[index]["id"]).val(result.data[index]["locationID"]);
+            }
+                
 
                 
             }
@@ -84,10 +94,6 @@ function updateDepartmentFilter($location){
                 for (let index = 0; index < $x; index++) {
                     
                     $('#DepartmentFilter').append($('<option>', {
-                    value: result.data[index]["id"],
-                    text: result.data[index]["name"]
-                }));
-                $('#addContactDepartment').append($('<option>', {
                     value: result.data[index]["id"],
                     text: result.data[index]["name"]
                 }));
@@ -211,7 +217,7 @@ function deleteDepartment($department){
 
             if (result.status.name == "ok") {
                 alert("Department deleted");
-                location.reload()
+                GetAllDepartments();
             }else if(result.status.name == "Contact Found"){
                 $x = result.len;
                 $text = "Cannot Delete Contacts still attached: ";
@@ -296,6 +302,7 @@ function selectedContact(id){
     }
 }
 function editContact(id, jobTitle, email, department, firstName, lastName){
+    //sets modal for selected contact
     console.log(id, jobTitle, email, department, firstName, lastName);
     $("#editContactConfirm").attr('name',id);
     $("#editFirstName").val(firstName);
@@ -305,37 +312,32 @@ function editContact(id, jobTitle, email, department, firstName, lastName){
     $("#editContactDepartment").val(department);
     $("#editContact").modal('toggle');
 }
-
-$(document).ready(function(){
-    
-    GetAllContacts();
-    GetAllDepartments();
+//edits per SQL PHP file
+$("#editContactConfirm").click(function(){
+    $firstName = $("#editFirstName").val();
+    $department = $("#editContactDepartment").val();
+    $surname = $("#editSurname").val();
+    $email = $("#editEmail").val();
+    $jobTitle = $("#editJobTitle").val();
+    $id = $("#editContactConfirm").attr('name');
     $.ajax({
-        url: "PHP/GetLocations.PHP",
-        type: 'GET',
+        url: "PHP/editContact.PHP",
+        type: 'POST',
         dataType: 'json',
+        data: {
+            firstName: $firstName,
+            department: $department,
+            lastName: $surname,
+            email: $email,
+            jobTitle: $jobTitle,
+            id: $id
+        },
         success: function(result) {
-            
+            console.log(result)
 
             if (result.status.name == "ok") {
-                $x = result.len;
-                for (let index = 0; index < $x; index++) {                    
-                    $('#LocationFilter').append($('<option>', {
-                    value: result.data[index]["id"],
-                    text: result.data[index]["name"]
-                }));
-                $('#addDepartmentLocation').append($('<option>', {
-                    value: result.data[index]["id"],
-                    text: result.data[index]["name"]
-                }));
-                $('#editDepartmentLocation').append($('<option>', {
-                    value: result.data[index]["id"],
-                    text: result.data[index]["name"]
-                }));
-                $('#delLocationList').append('<li><label for='+result.data[index]["id"]+'>'+result.data[index]["name"]+'</label><input type=image class="btn" src="Images/icons8-trash-24.png" alt="delete" onclick= "deleteLocation('+result.data[index]["id"]+'); return false">'+'</input></li>');
-                    
-                }
-
+                alert("Contact edited");
+                location.reload();
                 
             }
         
@@ -345,7 +347,104 @@ $(document).ready(function(){
         }
     });
 })
+function editDepartment(id){
+    departmentName = $("#editDepartment"+id).val();
+    locationID = $("#editDepartmentLocation"+id).val();
+    $.ajax({
+        url: "PHP/editDepartment.PHP",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            departmentName: departmentName,
+            id: id,
+            location: locationID
+        },
+        success: function(result) {
+            console.log(result)
+
+            if (result.status.name == "ok") {
+                alert("department edited");
+                console.log(result["query"])
+                // location.reload();
+                
+            }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+
+}
+function editLocation(id){
+    locationName = $("#editLocation"+id).val();
+    
+    $.ajax({
+        url: "PHP/editLocation.PHP",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            locationName: locationName,
+            id: id
+        },
+        success: function(result) {
+            console.log(result)
+
+            if (result.status.name == "ok") {
+                alert("location edited");
+                
+            }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+
+}
+$(document).ready(function(){
+    
+    GetAllContacts();
+    
+    $.ajax({
+        url: "PHP/GetLocations.PHP",
+        type: 'GET',
+        dataType: 'json',
+        success: function(result) {
+            
+
+            if (result.status.name == "ok") {
+                $x = result.len;
+                //location dropdowns is not affected by filters so is added at the start only- this may change as instead of refreshing the page the location query can be done again
+                for (let index = 0; index < $x; index++) {                    
+                    $('#LocationFilter').append($('<option>', {
+                    value: result.data[index]["id"],
+                    text: result.data[index]["name"]
+                }));
+                $('#addDepartmentLocation').append($('<option>', {
+                    value: result.data[index]["id"],
+                    text: result.data[index]["name"]
+                }));
+                
+
+                $('#editLocationList').append('<li><input type="text" value="'+result.data[index]["name"]+'" id="editLocation'+result.data[index]["id"]+'"></input><button type="button" onClick=editLocation('+result.data[index]["id"]+')>Update</button><button type="button" onClick=deleteLocation('+result.data[index]["id"]+')><i class="fas fa-trash-alt "></i></button></li>');
+                
+                }
+                GetAllDepartments();
+
+                
+            }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+});
+//shows dropdown and sets it to the generic option e.g add..., the first option (index 0)
+//hides drop down if clicked when already showing
 $("#add").click(function(){
+    
     $("#addDropDown").prop("selectedIndex", 0);
     if ($("#editDropDown").hasClass("active")){
         $("#editDropDown").removeClass("active");
@@ -354,6 +453,7 @@ $("#add").click(function(){
         $("#deleteDropDown").removeClass("active");
     }
     if ($("#addDropDown").hasClass("active")){
+        
         $("#addDropDown").removeClass("active");
     }else{
         $("#addDropDown").addClass("active");
@@ -394,6 +494,8 @@ $("#delete").click(function(){
         
     }
 });
+
+//shows modal associated with option
 $("#editDropDown").change(function(){
     $($(this).val()).modal('toggle');
 })
@@ -403,6 +505,8 @@ $("#addDropDown").change(function(){
 $("#deleteDropDown").change(function(){
     $($(this).val()).modal('toggle');
 })
+
+//adds per SQL PHP file
 $("#addLocationConfirm").click(function(){
     $name = $("#addLocationName").val()
 
@@ -486,46 +590,16 @@ $("#addContactConfirm").click(function(){
         }
     });
 })
-$("#editContactConfirm").click(function(){
-    $firstName = $("#editFirstName").val();
-    $department = $("#editContactDepartment").val();
-    $surname = $("#editSurname").val();
-    $email = $("#editEmail").val();
-    $jobTitle = $("#editJobTitle").val();
-    $id = $("#editContactConfirm").attr('name');
-    $.ajax({
-        url: "PHP/editContact.PHP",
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            firstName: $firstName,
-            department: $department,
-            lastName: $surname,
-            email: $email,
-            jobTitle: $jobTitle,
-            id: $id
-        },
-        success: function(result) {
-            console.log(result)
 
-            if (result.status.name == "ok") {
-                alert("Contact edited");
-                // location.reload();
-                
-            }
-        
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            alert(errorThrown);
-        }
-    });
-})
+
 $("#LocationFilter").change(function(){
     $location = $(this).val();
+    //removes filters and retreives all contacts/ departments
     if($location === "All"){
         GetAllDepartments();
         GetAllContacts();
     }else{
+        //applies filters
         updateDepartmentFilter($location);
         filterContactsByLocation($location);
     }
@@ -533,10 +607,19 @@ $("#LocationFilter").change(function(){
 
 $("#DepartmentFilter").change(function(){
     $department = $(this).val();
-    
+    //removes all filters. 
     if($department === "All"){
-        GetAllContacts();
-    }else{
+        //makes sure if a location filter is applied it is still applied after the department filter is removed
+        $location = $("#LocationFilter").val();
+        if($location === "All"){
+            GetAllContacts();
+        }else{
+            //applies location filters            
+            filterContactsByLocation($location);
+        }
+    }
+    //filters contacts for the department
+    else{
         filterContactsByDepartment($department);
     }
 })
@@ -544,11 +627,9 @@ $("#DepartmentFilter").change(function(){
 $("#searchbar").keyup(function(){
     $search = $(this).val();
     $('.contact').each(function(){
-        
+        //not case sensitive. If what user types appears anywhere in the text of the contact details it will be shown. If not it will be hidden.
         if(($(this)[0]['innerText'].toUpperCase()).includes($search.toUpperCase())){
             $(this).removeClass("inActive");
-            
-            
         }else{
             $(this).addClass("inActive");
         }
