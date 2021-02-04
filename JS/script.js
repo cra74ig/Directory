@@ -272,7 +272,6 @@ function cancelMultiContact(){
     window.contactsToDelete = [];
     $("#deleteMultiContacts").removeClass("active");
     $("#deleteMultiContacts").addClass("inActive");
-    console.log(window.contactsToDelete);
 }
 function selectedContact(id){
     if($("#deleteMultiContacts").hasClass("inActive")){
@@ -296,14 +295,11 @@ function selectedContact(id){
        $("#"+id).addClass("border-danger");
     
        window.contactsToDelete.push(id);
-       
-       console.log(window.contactsToDelete.toString());
   
     }
 }
 function editContact(id, jobTitle, email, department, firstName, lastName){
     //sets modal for selected contact
-    console.log(id, jobTitle, email, department, firstName, lastName);
     $("#editContactConfirm").attr('name',id);
     $("#editFirstName").val(firstName);
     $("#editSurname").val(lastName);
@@ -333,7 +329,6 @@ $("#editContactConfirm").click(function(){
             id: $id
         },
         success: function(result) {
-            console.log(result)
 
             if (result.status.name == "ok") {
                 alert("Contact edited");
@@ -360,11 +355,9 @@ function editDepartment(id){
             location: locationID
         },
         success: function(result) {
-            console.log(result)
 
             if (result.status.name == "ok") {
                 alert("department edited");
-                console.log(result["query"])
                 // location.reload();
                 
             }
@@ -388,7 +381,6 @@ function editLocation(id){
             id: id
         },
         success: function(result) {
-            console.log(result)
 
             if (result.status.name == "ok") {
                 alert("location edited");
@@ -444,7 +436,6 @@ $(document).ready(function(){
 //shows dropdown and sets it to the generic option e.g add..., the first option (index 0)
 //hides drop down if clicked when already showing
 $("#add").click(function(){
-    
     $("#addDropDown").prop("selectedIndex", 0);
     if ($("#editDropDown").hasClass("active")){
         $("#editDropDown").removeClass("active");

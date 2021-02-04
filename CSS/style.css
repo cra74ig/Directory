@@ -121,6 +121,7 @@ footer{
 @media (min-width: 640px){
     .contact{
         width: 30%;
+        max-width: 200px;
         
     }
     .card-img-top{
