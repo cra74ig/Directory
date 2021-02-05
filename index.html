@@ -20,20 +20,23 @@
     <body>
         <div id="top-menu">
             <form id=filters>
+              <div class="form-group">
                <input name="searchbar" type="search" id="searchbar"></input>
-                <!-- <label for="LocationFilter">Location</label> -->
+                
                 <select name="LocationFilter" id="LocationFilter" class="filters">
                     <option value="All" selected>All Locations</option>
                 </select>
-                
-                <!-- <label for="DepartmentFilter">Department</label> -->
+              <!-- </div>
+               <div class="form-group">  -->
                 <select name="DepartmentFilter" id="DepartmentFilter" class="filters">
                     <option value="All Departments" selected>All Departments</option>
                 </select>
+              
                 <button type="button" class="btn adminControls" id="edit"><i class="fas fa-edit admin"></i></button>
                 <button type="button" class="btn adminControls" id="add"><i class="fas fa-plus-circle admin"></i></button>
+              </div>
               </form>
-              <br>
+              
             
             <!-- <div id="dropDowns"> -->
                 <select id="addDropDown" class="dropDownOptions">
@@ -67,21 +70,21 @@
                 </div>
                 <div class="modal-body">
                   <form action="#">
-                      <input class="modalForm" type="text" id="addFirstName" placeholder="First name" required>
-                      <br>
-                      <br>
-                      <input class="modalForm" type="text" id="addSurname" placeholder="Surname" required>
-                      <br>
-                      <br>
-                      <input class="modalForm" type="text" id="addEmail" placeholder="Example@domain.com" required>
-                      <br>
-                      <br>
-                      <select class="modalForm" id="addContactDepartment" required>
+                      <div class="form-group">
+                        <input class=" form-control" type="text" id="addFirstName" placeholder="First name" required>
+                      </div>
+                      <div class="form-group">
+                      <input class=" form-control" type="text" id="addSurname" placeholder="Surname" required>
+                      </div>
+                      <div class="form-group">
+                      <input class=" form-control" type="email" id="addEmail" placeholder="Example@domain.com" required>
+                      </div>
+                      <div class="form-group">
+                      <select class=" form-control custom-select custom-select-m mb-3" id="addContactDepartment" required>
                           <option disabled selected value="">Department</option>
                       </select>
-                      <br>
-                      <br>
-                      <input class="modalForm" type="text" id="addJobTitle" placeholder="Job title" required>
+                      </div>
+                      <input class=" form-control" type="text" id="addJobTitle" placeholder="Job title" required>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <input type="submit" class="btn btn-primary" value="Add Contact" id="addContactConfirm">
@@ -102,21 +105,23 @@
                 </div>
                 <div class="modal-body">
                   <form action="#">
-                      <input class="modalForm" type="text" id="editFirstName" placeholder="First name" required>
-                      <br>
-                      <br>
-                      <input class="modalForm" type="text" id="editSurname" placeholder="Surname" required>
-                      <br>
-                      <br>
-                      <input class="modalForm" type="text" id="editEmail" placeholder="Example@domain.com" required>
-                      <br>
-                      <br>
-                      <select class="modalForm" id="editContactDepartment" required>
-                          <option disabled selected value="">Department</option>
-                      </select>
-                      <br>
-                      <br>
-                      <input class="modalForm" type="text" id="editJobTitle" placeholder="Job title" required>
+                    <div class="form-group">
+                        <input class="form-control" type="text" id="editFirstName" placeholder="First name" required>
+                      </div>
+                      <div class="form-group">
+                        <input class="form-control" type="text" id="editSurname" placeholder="Surname" required>
+                      </div>
+                      <div class="form-group">
+                        <input class=" form-control" type="email" id="editEmail" placeholder="Example@domain.com" required>
+                      </div>
+                      <div class="form-group">
+                        <select class="custom-select custom-select-m mb-3" id="editContactDepartment" required>
+                            <option disabled selected value="">Department</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <input class="form-control" type="text" id="editJobTitle" placeholder="Job title" required>
+                      </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <input type="submit" class="btn btn-primary" value="edit Contact" id="editContactConfirm"> 
@@ -137,12 +142,14 @@
                 </div>
                 <div class="modal-body">
                   <form action="#">
-                      <input class="modalForm" type="text" id="addDepartmentName" placeholder="Department name" required>
-                      <br>
-                      <br>
-                      <select class="modalForm" id="addDepartmentLocation" required>
+                    <div class="form-group">
+                      <input class="form-control" type="text" id="addDepartmentName" placeholder="Department name" required>
+                    </div>
+                    <div class="form-group">
+                      <select class="custom-select custom-select-m mb-3" id="addDepartmentLocation" required>
                           <option disabled selected value="">Location</option>
                       </select>
+                    </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <input type="submit" class="btn btn-primary" value="Add Department" id="addDepartmentConfirm">
@@ -163,7 +170,7 @@
                 </div>
                 <div class="modal-body">
                   <form>
-                    <ul id="editDepartmentList"></ul>
+                    <div id="editDepartmentList"></div>
                       <br>
                       <br>
                       <div class="modal-footer">
@@ -185,7 +192,9 @@
                 </div>
                 <div class="modal-body">
                   <form action="#">
-                      <input class="modalForm" type="text" id="addLocationName" placeholder="Location name" required>
+                    <div class="form-group">
+                      <input class="form-control" type="text" id="addLocationName" placeholder="Location name" required>
+                    </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <input type="submit" class="btn btn-primary" value="Add Location" id="addLocationConfirm">
@@ -207,7 +216,7 @@
                 </div>
                 <div class="modal-body">
                   <form>
-                    <ul id="editLocationList"></ul>
+                    <div id="editLocationList"></div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                       </div>

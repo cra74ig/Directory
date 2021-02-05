@@ -59,8 +59,8 @@ function GetAllDepartments(){
                     text: result.data[index]["name"]
                 }));
                 
-                
-                $('#editDepartmentList').append('<li><input type="text" value="'+result.data[index]["name"]+'" id="editDepartment'+result.data[index]["id"]+'"></input><select id="editDepartmentLocation'+result.data[index]["id"]+'">'+locations+'</select><button type="button" onClick=editDepartment('+result.data[index]["id"]+')>Update</button><button type="button" onClick=deleteDepartment('+result.data[index]["id"]+')><i class="fas fa-trash-alt "></i></button></li>');
+                //make a form row
+                $('#editDepartmentList').append('<div class="form-row"><div class="col-auto"><input type="text" class="form-control" value="'+result.data[index]["name"]+'" id="editDepartment'+result.data[index]["id"]+'"></input></div><div class="col-auto"><select class= "custom-select custom-select-m mb-3" id="editDepartmentLocation'+result.data[index]["id"]+'">'+locations+'</select></div><div class="col-auto"><button class="btn btn-primary" type="button" onClick=editDepartment('+result.data[index]["id"]+')>Update</button></div><div class="col-auto"><button type="button" class="btn " onClick=deleteDepartment('+result.data[index]["id"]+')><i class="fas fa-trash-alt "></i></button></div></div>');
                 //sets location for drop down to be the current location for department
                 $("#editDepartmentLocation"+result.data[index]["id"]).val(result.data[index]["locationID"]);
             }
@@ -419,7 +419,7 @@ $(document).ready(function(){
                 }));
                 
 
-                $('#editLocationList').append('<li><input type="text" value="'+result.data[index]["name"]+'" id="editLocation'+result.data[index]["id"]+'"></input><button type="button" onClick=editLocation('+result.data[index]["id"]+')>Update</button><button type="button" onClick=deleteLocation('+result.data[index]["id"]+')><i class="fas fa-trash-alt "></i></button></li>');
+                $('#editLocationList').append('<div class="form-row"><div class="col-auto"><input class="form-control" type="text" value="'+result.data[index]["name"]+'" id="editLocation'+result.data[index]["id"]+'"></input></div><div class="col-auto"><button class="btn btn-primary" type="button" onClick=editLocation('+result.data[index]["id"]+')>Update</button></div><div class="col-auto"><button class="btn" type="button" onClick=deleteLocation('+result.data[index]["id"]+')><i class="fas fa-trash-alt "></i></button></div></div></br>');
                 
                 }
                 GetAllDepartments();
