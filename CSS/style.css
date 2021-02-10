@@ -8,7 +8,7 @@ html{
     height: fit-content;
 }
 .filters{
-    width: 32%;
+    width: 25%;
 }
 @media only screen and (max-width: 450px){
     #searchbar{
@@ -20,9 +20,9 @@ html{
         width: 100%;
         
     }
-    /* .filters{
-        width: 32%;
-    } */
+    .filters{
+        width: 35%;
+    }
 }
 @media (min-width:450px){
     #searchbar{

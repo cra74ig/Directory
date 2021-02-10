@@ -18,7 +18,14 @@
         $data = [];
         $x = 0;
         while ($row = mysqli_fetch_assoc($result)) {
-      
+          $filename = '../Images/'.$row['id'].'.jpeg';
+          
+          if (file_exists($filename)) {
+            // echo $filename;
+            $row['image'] = $filename;
+          } else {
+            $row['image'] ='Images/blank-profile-picture-973460_640.png';
+          }
           array_push($data, $row);
           $x += 1;
         }

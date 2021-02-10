@@ -1,4 +1,5 @@
 contactsToDelete = [];
+
 function GetAllContacts(){
     $.ajax({
         url: "PHP/GetAllContacts.PHP",
@@ -9,15 +10,18 @@ function GetAllContacts(){
             if (result.status.name == "ok") {
                 $("#contacts").empty()
                 $x = result.len;
+                
                 for (let index = 0; index < $x; index++) {
                     
-                    $imgPath="Images/blank-profile-picture-973460_640.png";
+                    $imgPath = result.data[index]['image'];
+                    // $imgPath="Images/blank-profile-picture-973460_640.png";
                     $contact = " <div class='card contact' id='"+ result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><img class='card-img-top' src='"+$imgPath+"' alt='Card image cap'><div class='card-body'> <h5 class='card-title'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "<button type='button' class='btn adminControls' onclick= editContact("+result.data[index]['id']+",'"+encodeURIComponent(result.data[index]['jobTitle'])+"','"+result.data[index]['email']+"','"+encodeURIComponent(result.data[index]['departmentID'])+"','"+result.data[index]['firstName']+ "','" +result.data[index]['lastName'] +"')><i class='fas fa-edit admin'></i></button></h5><p class='card-text'>"+result.data[index]['jobTitle']+"</p><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i> "+result.data[index]['email']+"</a></p><p>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
                    
                     
                      $('#contacts').append($($contact));
-                    
-                }
+                     
+                     
+                    }
 
                 
             }
@@ -307,7 +311,43 @@ function editContact(id, jobTitle, email, department, firstName, lastName){
     $("#editJobTitle").val(decodeURIComponent(jobTitle));
     $("#editContactDepartment").val(department);
     $("#editContact").modal('toggle');
+    
 }
+async function uploadFileEdit($id) {
+    $fileName = $id+".jpg";
+    // let formData = new FormData();           
+    // formData.append("file",  $("#editUploadImage"));
+  
+    var fd = new FormData();
+        var files = $('#editUploadImage')[0].files;
+        
+        // Check file selected or not
+        if(files.length > 0 ){
+           fd.append('file',files[0]);
+
+           $.ajax({
+              url: 'PHP/Upload.php',
+              type: 'post',
+              data: fd,
+              contentType: false,
+              processData: false,
+              success: function(response){
+                 if(response != 0){
+                    // $("#img").attr("src",response); 
+                    // $(".preview img").show(); // Display image element
+                 }else{
+                    alert('file not uploaded');
+                 }
+              },
+              error: function(error){
+                console.log(error);
+              }
+           });
+        }else{
+           alert("Please select a file.");
+        }
+}
+
 //edits per SQL PHP file
 $("#editContactConfirm").click(function(){
     $firstName = $("#editFirstName").val();
@@ -316,6 +356,7 @@ $("#editContactConfirm").click(function(){
     $email = $("#editEmail").val();
     $jobTitle = $("#editJobTitle").val();
     $id = $("#editContactConfirm").attr('name');
+    uploadFileEdit($id);
     $.ajax({
         url: "PHP/editContact.PHP",
         type: 'POST',
@@ -332,7 +373,7 @@ $("#editContactConfirm").click(function(){
 
             if (result.status.name == "ok") {
                 alert("Contact edited");
-                location.reload();
+                // location.reload();
                 
             }
         

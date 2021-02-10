@@ -26,19 +26,20 @@
                 <select name="LocationFilter" id="LocationFilter" class="filters">
                     <option value="All" selected>All Locations</option>
                 </select>
-              <!-- </div>
-               <div class="form-group">  -->
+              
+               
                 <select name="DepartmentFilter" id="DepartmentFilter" class="filters">
                     <option value="All Departments" selected>All Departments</option>
                 </select>
-              
-                <button type="button" class="btn adminControls" id="edit"><i class="fas fa-edit admin"></i></button>
-                <button type="button" class="btn adminControls" id="add"><i class="fas fa-plus-circle admin"></i></button>
+                <!-- <div class="form-group">  -->
+                  <button type="button" class="btn adminControls" id="edit"><i class="fas fa-edit admin"></i></button>
+                  <button type="button" class="btn adminControls" id="add"><i class="fas fa-plus-circle admin"></i></button>
+                <!-- </div> -->
               </div>
               </form>
               
             
-            <!-- <div id="dropDowns"> -->
+            <div id="dropDowns">
                 <select id="addDropDown" class="dropDownOptions">
                     <option disabled selected>Add...</option>
                     <option value="#addContact">Add contact</option>
@@ -51,7 +52,7 @@
                     <option value="#editLocation">Edit locations</option>
                 </select>
                 
-            <!-- </div> -->
+            </div>
             <!-- <div id="adminControls"> -->
         </div>
             
@@ -121,6 +122,9 @@
                       </div>
                       <div class="form-group">
                         <input class="form-control" type="text" id="editJobTitle" placeholder="Job title" required>
+                      </div>
+                      <div class="form-group">
+                        <input type="file" accept="image/jpeg" id="editUploadImage">
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
