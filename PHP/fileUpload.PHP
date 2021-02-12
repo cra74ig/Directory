@@ -15,7 +15,7 @@ if(isset($_FILES['file']['name'])){
 
    $response = 0;
    if(move_uploaded_file($_FILES['file']['tmp_name'],$location)){
-    $response = $location;
+    $response = $filename;
    }
 
    echo $response;

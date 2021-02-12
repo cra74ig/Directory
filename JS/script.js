@@ -349,8 +349,8 @@ $("#editContactConfirm").click(function(e){
             console.log(errorThrown);
         }
     });
-    $newName = "../Images/"+$id+".jpg";
-    console.log($newName)
+    $newName = $id + ".jpg";
+    
   
     var fd = new FormData();
         var files = $('#editUploadImage')[0].files;
@@ -358,6 +358,7 @@ $("#editContactConfirm").click(function(e){
         // Check file selected or not
         if(files.length > 0 ){
            fd.append('file',files[0]);
+           $path = files[0]["name"];
            $.ajax({
               url: "PHP/fileUpload.PHP",
               type: 'POST',
@@ -374,23 +375,22 @@ $("#editContactConfirm").click(function(e){
                         type: 'POST',
                         dataType: 'json',
                         data: {
-                            newName: $newName,
-                            path: $path
+                            path: $path,
+                            newName: $newName
                         },
-                        contentType: false,
-                        processData: false,
-                        success: function(response){
-                            console.log(response);
-                           if(response != "0"){
-                              alert('image uploaded');
-                           }else{
-                              alert('image not uploaded');
-                           }
+                        success: function(result) {
+                
+                            if (result.status.name == "ok") {
+                                alert("Image uploaded");
+                                // location.reload();
+                                console.log(result.status.description);
+                            }
+                            console.log(result);
                         },
-                        error: function(jqXHR, textStatus, errorThrown){
-                          console.log(errorThrown);
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(errorThrown);
                         }
-                     });
+                    });
                  }else{
                     alert('file not uploaded');
                  }
@@ -399,6 +399,7 @@ $("#editContactConfirm").click(function(e){
                 console.log(errorThrown);
               }
            });
+           
         }
 })
 function editDepartment(id){
