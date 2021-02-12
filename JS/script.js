@@ -313,50 +313,17 @@ function editContact(id, jobTitle, email, department, firstName, lastName){
     $("#editContact").modal('toggle');
     
 }
-async function uploadFileEdit($id) {
-    $fileName = $id+".jpg";
-    // let formData = new FormData();           
-    // formData.append("file",  $("#editUploadImage"));
-  
-    var fd = new FormData();
-        var files = $('#editUploadImage')[0].files;
-        
-        // Check file selected or not
-        if(files.length > 0 ){
-           fd.append('file',files[0]);
-
-           $.ajax({
-              url: 'PHP/Upload.php',
-              type: 'post',
-              data: fd,
-              contentType: false,
-              processData: false,
-              success: function(response){
-                 if(response != 0){
-                    // $("#img").attr("src",response); 
-                    // $(".preview img").show(); // Display image element
-                 }else{
-                    alert('file not uploaded');
-                 }
-              },
-              error: function(error){
-                console.log(error);
-              }
-           });
-        }else{
-           alert("Please select a file.");
-        }
-}
 
 //edits per SQL PHP file
-$("#editContactConfirm").click(function(){
+$("#editContactConfirm").click(function(e){
+    
     $firstName = $("#editFirstName").val();
     $department = $("#editContactDepartment").val();
     $surname = $("#editSurname").val();
     $email = $("#editEmail").val();
     $jobTitle = $("#editJobTitle").val();
     $id = $("#editContactConfirm").attr('name');
-    uploadFileEdit($id);
+    // uploadFileEdit($id);
     $.ajax({
         url: "PHP/editContact.PHP",
         type: 'POST',
@@ -382,6 +349,57 @@ $("#editContactConfirm").click(function(){
             console.log(errorThrown);
         }
     });
+    $newName = "../Images/"+$id+".jpg";
+    console.log($newName)
+  
+    var fd = new FormData();
+        var files = $('#editUploadImage')[0].files;
+        
+        // Check file selected or not
+        if(files.length > 0 ){
+           fd.append('file',files[0]);
+           $.ajax({
+              url: "PHP/fileUpload.PHP",
+              type: 'POST',
+              data: fd,
+              contentType: false,
+              processData: false,
+              success: function(response){
+                  $path = response;
+                  console.log($path);
+                  console.log($newName);
+                 if(response != "0"){
+                    $.ajax({
+                        url: "PHP/fileRename.PHP",
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            newName: $newName,
+                            path: $path
+                        },
+                        contentType: false,
+                        processData: false,
+                        success: function(response){
+                            console.log(response);
+                           if(response != "0"){
+                              alert('image uploaded');
+                           }else{
+                              alert('image not uploaded');
+                           }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown){
+                          console.log(errorThrown);
+                        }
+                     });
+                 }else{
+                    alert('file not uploaded');
+                 }
+              },
+              error: function(jqXHR, textStatus, errorThrown){
+                console.log(errorThrown);
+              }
+           });
+        }
 })
 function editDepartment(id){
     departmentName = $("#editDepartment"+id).val();
@@ -539,7 +557,7 @@ $("#deleteDropDown").change(function(){
 })
 
 //adds per SQL PHP file
-$("#addLocationConfirm").click(function(){
+$("#addLocationConfirm").submit(function(){
     $name = $("#addLocationName").val()
 
     $.ajax({
@@ -564,7 +582,7 @@ $("#addLocationConfirm").click(function(){
         }
     });
 })
-$("#addDepartmentConfirm").click(function(){
+$("#addDepartmentConfirm").submit(function(){
     $name = $("#addDepartmentName").val();
     $location = $("#addDepartmentLocation").val();
     $.ajax({
@@ -621,6 +639,38 @@ $("#addContactConfirm").click(function(){
             console.log(errorThrown);
         }
     });
+    $fileName = $id+".jpg";
+    // let formData = new FormData();           
+    // formData.append("file",  $("#editUploadImage"));
+  
+    var fd = new FormData();
+        var files = $('#addUploadImage')[0].files;
+        
+        // Check file selected or not
+        if(files.length > 0 ){
+           fd.append('file',files[0]);
+
+           $.ajax({
+              url: "PHP/fileUpload.PHP",
+              type: 'POST',
+              data: fd,
+              contentType: false,
+              processData: false,
+              success: function(response){
+                 if(response != 0){
+                    // $("#img").attr("src",response); 
+                    // $(".preview img").show(); // Display image element
+                    alert('file uploaded');
+                 }else{
+                    alert('file not uploaded');
+                 }
+              },
+              error: function(error){
+                console.log(error);
+              }
+           });
+        }
+        alert('file');
 })
 
 

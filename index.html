@@ -86,6 +86,10 @@
                       </select>
                       </div>
                       <input class=" form-control" type="text" id="addJobTitle" placeholder="Job title" required>
+                      
+                      <div class="form-group">
+                        <input type="file" accept="image/jpeg" id="addUploadImage">
+                      </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <input type="submit" class="btn btn-primary" value="Add Contact" id="addContactConfirm">
@@ -107,28 +111,28 @@
                 <div class="modal-body">
                   <form action="#">
                     <div class="form-group">
-                        <input class="form-control" type="text" id="editFirstName" placeholder="First name" required>
+                        <input class="form-control" type="text" id="editFirstName" placeholder="First name">
                       </div>
                       <div class="form-group">
-                        <input class="form-control" type="text" id="editSurname" placeholder="Surname" required>
+                        <input class="form-control" type="text" id="editSurname" placeholder="Surname">
                       </div>
                       <div class="form-group">
-                        <input class=" form-control" type="email" id="editEmail" placeholder="Example@domain.com" required>
+                        <input class=" form-control" type="email" id="editEmail" placeholder="Example@domain.com">
                       </div>
                       <div class="form-group">
-                        <select class="custom-select custom-select-m mb-3" id="editContactDepartment" required>
+                        <select class="custom-select custom-select-m mb-3" id="editContactDepartment">
                             <option disabled selected value="">Department</option>
                         </select>
                       </div>
                       <div class="form-group">
-                        <input class="form-control" type="text" id="editJobTitle" placeholder="Job title" required>
+                        <input class="form-control" type="text" id="editJobTitle" placeholder="Job title">
                       </div>
                       <div class="form-group">
                         <input type="file" accept="image/jpeg" id="editUploadImage">
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="edit Contact" id="editContactConfirm"> 
+                        <input type="button" class="btn btn-primary" value="edit Contact" id="editContactConfirm"> 
                       </div>
                   </form>
                 </div>
