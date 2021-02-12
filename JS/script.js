@@ -339,68 +339,70 @@ $("#editContactConfirm").click(function(e){
         success: function(result) {
 
             if (result.status.name == "ok") {
-                alert("Contact edited");
-                // location.reload();
-                
-            }
-        
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log(errorThrown);
-        }
-    });
-    $newName = $id + ".jpg";
+                $newName = $id + ".jpg";
     
   
-    var fd = new FormData();
-        var files = $('#editUploadImage')[0].files;
-        
-        // Check file selected or not
-        if(files.length > 0 ){
-           fd.append('file',files[0]);
-           $path = files[0]["name"];
-           $.ajax({
-              url: "PHP/fileUpload.PHP",
-              type: 'POST',
-              data: fd,
-              contentType: false,
-              processData: false,
-              success: function(response){
-                  $path = response;
-                  console.log($path);
-                  console.log($newName);
-                 if(response != "0"){
+                var fd = new FormData();
+                var files = $('#editUploadImage')[0].files;
+            
+                // Check file selected or not
+                if(files.length > 0 ){
+                    fd.append('file',files[0]);
+                    $path = files[0]["name"];
                     $.ajax({
-                        url: "PHP/fileRename.PHP",
+                        url: "PHP/fileUpload.PHP",
                         type: 'POST',
-                        dataType: 'json',
-                        data: {
-                            path: $path,
-                            newName: $newName
-                        },
-                        success: function(result) {
-                
-                            if (result.status.name == "ok") {
-                                alert("Image uploaded");
-                                // location.reload();
-                                console.log(result.status.description);
+                        data: fd,
+                        contentType: false,
+                        processData: false,
+                        success: function(response){
+                            $path = response;
+                            if(response != "0"){
+                                $.ajax({
+                                    url: "PHP/fileRename.PHP",
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    data: {
+                                        path: $path,
+                                        newName: $newName
+                                    },
+                                    success: function(result) {
+                            
+                                        if (result.status.name == "ok") {
+                                            alert("Contact edited");
+                                            location.reload();
+                                            
+                                        }
+                                        
+                                    },
+                                    error: function(jqXHR, textStatus, errorThrown) {
+                                        console.log(errorThrown);
+                                    }
+                                });
+                            }else{
+                                alert('Image not uploaded.');
                             }
-                            console.log(result);
                         },
-                        error: function(jqXHR, textStatus, errorThrown) {
+                        error: function(jqXHR, textStatus, errorThrown){
                             console.log(errorThrown);
                         }
                     });
-                 }else{
-                    alert('file not uploaded');
-                 }
-              },
-              error: function(jqXHR, textStatus, errorThrown){
-                console.log(errorThrown);
-              }
-           });
-           
+                
+                }else{
+                    alert("Contact edited");
+                    location.reload();
+                }
+                    
+                    
+            }
+            
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+            alert("Contact Update Failed")
         }
+    });
+    
 })
 function editDepartment(id){
     departmentName = $("#editDepartment"+id).val();

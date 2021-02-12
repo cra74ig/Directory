@@ -86,10 +86,7 @@ footer{
     right: 0;
     bottom: 0;
 }
-.modal{
-    text-align: center;
-    
-}
+
 
 #contacts{
     width: 100%;
@@ -143,6 +140,3 @@ ul{
     text-align:center;
     background-color: rgba(212, 212, 131, 0.719);
 }
-/* .form-control{
-    min-width: fit-content;
-} */
