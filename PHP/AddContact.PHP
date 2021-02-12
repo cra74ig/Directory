@@ -11,13 +11,14 @@
   } else {
     
     $query = 'INSERT INTO personnel (firstName, lastName, jobTitle, email, departmentID) VALUES("' . $_REQUEST['firstName'] . '","' . $_REQUEST['surname'] . '","' . $_REQUEST['jobTitle'] . '","' . $_REQUEST['email'] . '","' . $_REQUEST['department'] . '")';
-    $result=$link->query($query);
-    if($result){
+    
+    if($link->query($query)){
+        $last_id = $link->insert_id;
         $output['status']['code'] = "200";
         $output['status']['name'] = "ok";
         $output['status']['description'] = "success";
         $output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
-        
+        $output['data']['id'] = $last_id;
 
         header('Content-Type: application/json; charset=UTF-8');
         
@@ -32,7 +33,7 @@
 		  $output['status']['description'] = "Failed Query";	
 		  $output['data'] = [];
 
-		mysqli_close($link);
+		mysqli_close($query);
     }
   }
   echo json_encode($output); 

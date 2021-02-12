@@ -104,7 +104,8 @@ footer{
         height: 100%;
     }
     .card-img-top{
-        height: 20%;
+        height: 214px;
+        width: 100%;
     }
 }
 
@@ -115,7 +116,8 @@ footer{
         height: 100%;
     }
     .card-img-top{
-        height: 20%;
+        height: 265px;
+        width: 100%;
     }
 }
 
@@ -125,7 +127,8 @@ footer{
         max-width: 200px;        
     }
     .card-img-top{
-        height: 50%;
+        height: 198px;
+        width: 100%;
     }
     
 }

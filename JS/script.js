@@ -15,7 +15,7 @@ function GetAllContacts(){
                     
                     $imgPath = result.data[index]['image'];
                     // $imgPath="Images/blank-profile-picture-973460_640.png";
-                    $contact = " <div class='card contact' id='"+ result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><img class='card-img-top' src='"+$imgPath+"' alt='Card image cap'><div class='card-body'> <h5 class='card-title'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "<button type='button' class='btn adminControls' onclick= editContact("+result.data[index]['id']+",'"+encodeURIComponent(result.data[index]['jobTitle'])+"','"+result.data[index]['email']+"','"+encodeURIComponent(result.data[index]['departmentID'])+"','"+result.data[index]['firstName']+ "','" +result.data[index]['lastName'] +"')><i class='fas fa-edit admin'></i></button></h5><p class='card-text'>"+result.data[index]['jobTitle']+"</p><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i> "+result.data[index]['email']+"</a></p><p>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
+                    $contact = " <div class='card contact' id='"+ result.data[index]['id']+"' onclick='selectedContact("+result.data[index]['id']+")'><img class='card-img-top' src='"+$imgPath+"' alt='Card image cap'/><div class='card-body'> <h5 class='card-title'>"+result.data[index]['firstName']+ " " +result.data[index]['lastName'] + "<button type='button' class='btn adminControls' onclick= editContact("+result.data[index]['id']+",'"+encodeURIComponent(result.data[index]['jobTitle'])+"','"+result.data[index]['email']+"','"+encodeURIComponent(result.data[index]['departmentID'])+"','"+result.data[index]['firstName']+ "','" +result.data[index]['lastName'] +"')><i class='fas fa-edit admin'></i></button></h5><p class='card-text'>"+result.data[index]['jobTitle']+"</p><p class='card-text'><a href=mailto:"+result.data[index]['email']+"><i class='far fa-envelope'></i> "+result.data[index]['email']+"</a></p><p>"+result.data[index]['department']+", "+result.data[index]['location']+"</p></div></div>";
                    
                     
                      $('#contacts').append($($contact));
@@ -631,8 +631,55 @@ $("#addContactConfirm").click(function(){
 
             if (result.status.name == "ok") {
                 alert("Contact Added");
+                $id = result.data["id"];
+                var fd = new FormData();
+                var files = $('#addUploadImage')[0].files;
+                $newName = $id + ".jpg";
+                // Check file selected or not
+                if(files.length > 0 ){
+                fd.append('file',files[0]);
+                $path = files[0]["name"];
+                $.ajax({
+                    url: "PHP/fileUpload.PHP",
+                    type: 'POST',
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    success: function(response){
+                        $path = response;
+                        console.log($path);
+                        console.log($newName);
+                            if(response != "0"){
+                                $.ajax({
+                                    url: "PHP/fileRename.PHP",
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    data: {
+                                        path: $path,
+                                        newName: $newName
+                                    },
+                                    success: function(result) {
+                            
+                                        if (result.status.name == "ok") {
+                                            alert("Image uploaded");
+                                            location.reload();
+                                        }
+                                    },
+                                    error: function(jqXHR, textStatus, errorThrown) {
+                                        console.log(errorThrown);
+                                    }
+                                });
+                            }else{
+                                alert('Image not uploaded');
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown){
+                            console.log(errorThrown);
+                        }
+                    });
+            }else{
                 location.reload();
-                
+                }
             }
         
         },
@@ -640,38 +687,7 @@ $("#addContactConfirm").click(function(){
             console.log(errorThrown);
         }
     });
-    $fileName = $id+".jpg";
-    // let formData = new FormData();           
-    // formData.append("file",  $("#editUploadImage"));
-  
-    var fd = new FormData();
-        var files = $('#addUploadImage')[0].files;
-        
-        // Check file selected or not
-        if(files.length > 0 ){
-           fd.append('file',files[0]);
-
-           $.ajax({
-              url: "PHP/fileUpload.PHP",
-              type: 'POST',
-              data: fd,
-              contentType: false,
-              processData: false,
-              success: function(response){
-                 if(response != 0){
-                    // $("#img").attr("src",response); 
-                    // $(".preview img").show(); // Display image element
-                    alert('file uploaded');
-                 }else{
-                    alert('file not uploaded');
-                 }
-              },
-              error: function(error){
-                console.log(error);
-              }
-           });
-        }
-        alert('file');
+    
 })
 
 
