@@ -2,16 +2,11 @@
 <html lang="en">
     <head>
         <title>Directory</title>
-        <script src="JS/jquery-2.2.3.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
         <link rel="stylesheet" href="CSS/Style.css" type="text/css">
         <link rel=icon href="Images/icons8-contacts-48.png">
@@ -20,8 +15,8 @@
     <body>
         <div id="top-menu">
             <form id=filters>
-              <div class="form-group">
-               <input name="searchbar" type="search" id="searchbar"></input>
+              <div class="form-row">
+               <input name="searchbar" type="search" id="searchbar" class="filters"></input>
                 
                 <select name="LocationFilter" id="LocationFilter" class="filters">
                     <option value="All" selected>All Locations</option>
@@ -31,29 +26,15 @@
                 <select name="DepartmentFilter" id="DepartmentFilter" class="filters">
                     <option value="All Departments" selected>All Departments</option>
                 </select>
-                <!-- <div class="form-group">  -->
-                  <button type="button" class="btn adminControls" id="edit"><i class="fas fa-edit admin"></i></button>
-                  <button type="button" class="btn adminControls" id="add"><i class="fas fa-plus-circle admin"></i></button>
-                <!-- </div> -->
-              </div>
-              </form>
               
-            
-            <div id="dropDowns">
-                <select id="addDropDown" class="dropDownOptions">
-                    <option disabled selected>Add...</option>
-                    <option value="#addContact">Add contact</option>
-                    <option value="#addDepartment">Add department</option>
-                    <option value="#addLocation">Add location</option>
-                </select>
-                <select id="editDropDown" class="dropDownOptions">
-                    <option disabled selected>Edit...</option>
-                    <option value="#editDepartment">Edit departments</option>
-                    <option value="#editLocation">Edit locations</option>
-                </select>
-                
-            </div>
-            <!-- <div id="adminControls"> -->
+                <!-- <div class="form-group">  -->
+                  <button type="button" class="btn adminControls" id="location"><i class="fas fa-building admin"></i></button>
+                  <button type="button" class="btn adminControls" id="department"><i class="fas fa-users admin"></i></button>
+                  <button type="button" class="btn adminControls" id="refresh"><i class="fas fa-sync admin"></i></button>
+                  <button type="button" class="btn adminControls" id="addContactButton"><i class="fas fa-user-plus admin"></i></button>
+                  
+                </div>
+              </form>
         </div>
             
         <div id="deleteMultiContacts" class="inActive">
@@ -143,34 +124,7 @@
               </div>
             </div>
           </div>
-          <div class="modal" tabindex="-1" id="addDepartment">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Add Department</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form action="#">
-                    <div class="form-group">
-                      <input class="form-control" type="text" id="addDepartmentName" placeholder="Department name" required>
-                    </div>
-                    <div class="form-group">
-                      <select class="custom-select custom-select-m mb-3" id="addDepartmentLocation" required>
-                          <option disabled selected value="">Location</option>
-                      </select>
-                    </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Add Department" id="addDepartmentConfirm">
-                      </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+          
           <div class="modal" tabindex="-1" id="editDepartment">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -182,6 +136,19 @@
                 </div>
                 <div class="modal-body">
                   <form>
+                    <div class="form-row">
+                      <div class="col-auto">
+                        <input class="form-control" type="text" id="addDepartmentName" placeholder="Department name" required>
+                      </div>
+                      <div class="col-auto">
+                        <select class="custom-select custom-select-m mb-3" id="addDepartmentLocation" required>
+                          <option disabled selected value="">Location</option>
+                         </select>
+                        </div>
+                        <div class="col-auto">
+                          <button class="btn btn-primary" value="Add Department" id="addDepartmentConfirm">Add Department</button>
+                        </div>
+                      </div>
                     <div id="editDepartmentList"></div>
                       <br>
                       <br>
@@ -193,30 +160,7 @@
               </div>
             </div>
           </div>
-          <div class="modal" tabindex="-1" id="addLocation">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Add Location</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form action="#">
-                    <div class="form-group">
-                      <input class="form-control" type="text" id="addLocationName" placeholder="Location name" required>
-                    </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Add Location" id="addLocationConfirm">
-                      </div>
-                  </form>
-                </div>
-                
-              </div>
-            </div>
-          </div>
+         
           <div class="modal" tabindex="-1" id="editLocation">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -228,6 +172,15 @@
                 </div>
                 <div class="modal-body">
                   <form>
+                    <div class="form-row">
+                      <div class="col-auto">
+                        <input class="form-control" type="text" id="addLocationName" placeholder="Location name" required>
+                      </div>
+                      <div class="col-auto">
+                        <button type="button" class="btn btn-primary" id="addLocationConfirm">Add New Location</button>
+                      </div>
+                    </div>
+                  </br>
                     <div id="editLocationList"></div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -238,9 +191,64 @@
               </div>
             </div>
           </div>
+          <div class="modal" tabindex="-1" id="failedDepartmentDeletion">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Failed to delete Department</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>Cannot Delete Contacts still attached: </p>
+                  <ul id="reasonsDepartmentDelFail"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal" tabindex="-1" id="failedLocationDeletion">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Failed to delete Location</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>Cannot Delete Departments still attached: </p>
+                  <ul id="reasonsLocationsDelFail"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal" tabindex="-1" id="successfulLocationDeletion">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Successfully deleted Location</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal" tabindex="-1" id="successfulDepartmentDeletion">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Successfully deleted Department</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
             <div id="contacts" class="overflow-auto p-3 mb-3 mb-md-0 mr-md-3 bg-light row"></div>
-          
-        <script src="js/Script.js"></script>
+        
         
     <footer>
         <p>
@@ -248,5 +256,9 @@
         </p>
     </footer>
     </body>
-
+    <script src="JS/jquery-2.2.3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="js/Script.js"></script>
 </html>
