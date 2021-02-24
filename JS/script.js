@@ -263,8 +263,8 @@ function deleteContact(){
             
 
             if (result.status.name == "ok") {
-                alert("Contacts deleted");
-                location.reload()
+                $("#successfulContactDeletion").modal("toggle");
+                GetAllContacts();
             }           
         
         },
@@ -417,8 +417,8 @@ $("#editContactConfirm").click(function(e){
                                     success: function(result) {
                             
                                         if (result.status.name == "ok") {
-                                            alert("Contact edited");
-                                            location.reload();
+                                            $("#successfulContactEdit").modal("toggle");
+                                            $("#editContact").modal('toggle');
                                             
                                         }
                                         
@@ -428,7 +428,9 @@ $("#editContactConfirm").click(function(e){
                                     }
                                 });
                             }else{
-                                alert('Image not uploaded.');
+                                $("#successfulContactEditNoImage").modal("toggle");
+                                $("#editContact").modal('toggle');
+                                
                             }
                         },
                         error: function(jqXHR, textStatus, errorThrown){
@@ -437,8 +439,8 @@ $("#editContactConfirm").click(function(e){
                     });
                 
                 }else{
-                    alert("Contact edited");
-                    location.reload();
+                    $("#successfulContactEdit").modal("toggle");
+                    $("#editContact").modal('toggle');
                 }
                     
                     
@@ -447,7 +449,8 @@ $("#editContactConfirm").click(function(e){
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);
-            alert("Contact Update Failed")
+            $("#failedContactEdit").modal("toggle");
+            $("#editContact").modal('toggle');
         }
     });
     
@@ -467,8 +470,9 @@ function editDepartment(id){
         success: function(result) {
 
             if (result.status.name == "ok") {
-                alert("department edited");
-                // location.reload();
+                $("#successfulDepartmentEdit").modal("toggle");
+                
+                
                 
             }
         
@@ -493,7 +497,7 @@ function editLocation(id){
         success: function(result) {
 
             if (result.status.name == "ok") {
-                alert("location edited");
+                $("#successfulLocationEdit").modal("toggle");
                 
             }
         
@@ -511,75 +515,12 @@ $(document).ready(function(){
     
    
 });
-//shows dropdown and sets it to the generic option e.g add..., the first option (index 0)
-//hides drop down if clicked when already showing
-$("#add").click(function(){
-    $("#addDropDown").prop("selectedIndex", 0);
-    if ($("#editDropDown").hasClass("active")){
-        $("#editDropDown").removeClass("active");
-    }
-    if ($("#deleteDropDown").hasClass("active")){
-        $("#deleteDropDown").removeClass("active");
-    }
-    if ($("#addDropDown").hasClass("active")){
-        
-        $("#addDropDown").removeClass("active");
-    }else{
-        $("#addDropDown").addClass("active");
-    }
-});
-$("#edit").click(function(){
-    $("#editDropDown").prop("selectedIndex", 0);
-    if ($("#addDropDown").hasClass("active")){
-        $("#addDropDown").removeClass("active");
-    }
-    if ($("#deleteDropDown").hasClass("active")){
-        $("#deleteDropDown").removeClass("active");
-        
-    }
-    if ($("#editDropDown").hasClass("active")){
-        $("#editDropDown").removeClass("active");
-        
-    }else{
-        $("#editDropDown").addClass("active");
-        
-    }
-});
-$("#delete").click(function(){
-    $("#deleteDropDown").prop("selectedIndex", 0);
-    if ($("#addDropDown").hasClass("active")){
-        $("#addDropDown").removeClass("active");
-        
-    }
-    if ($("#editDropDown").hasClass("active")){
-        $("#editDropDown").removeClass("active");
-        
-    }
-    if ($("#deleteDropDown").hasClass("active")){
-        $("#deleteDropDown").removeClass("active");
-        
-    }else{
-        $("#deleteDropDown").addClass("active");
-        
-    }
-});
 $("#refresh").click(function(){
     GetAllContacts();
     getLocations();
     GetAllDepartments();
     
 });
-
-//shows modal associated with option
-$("#editDropDown").change(function(){
-    $($(this).val()).modal('toggle');
-})
-$("#addDropDown").change(function(){
-    $($(this).val()).modal('toggle');
-})
-$("#deleteDropDown").change(function(){
-    $($(this).val()).modal('toggle');
-})
 
 $("#addContactButton").click(function () {
     $("#addContact").modal('toggle');
@@ -609,8 +550,8 @@ $("#addLocationConfirm").click(function(){
             
 
             if (result.status.name == "ok") {
-                alert("Location Added");
-                location.reload();
+                $("#successfulLocationAdd").modal("toggle");
+                getLocations();
                 
             }
         
@@ -635,8 +576,7 @@ $("#addDepartmentConfirm").click(function(){
             
 
             if (result.status.name == "ok") {
-                alert("Department Added");
-                location.reload();
+                GetAllDepartments();
                 
             }
         
@@ -665,9 +605,9 @@ $("#addContactConfirm").click(function(){
         },
         success: function(result) {
             
-
-            if (result.status.name == "ok") {
-                alert("Contact Added");
+            console.log(result);
+            if (result.status.name === "ok") {
+                
                 $id = result.data["id"];
                 var fd = new FormData();
                 var files = $('#addUploadImage')[0].files;
@@ -698,8 +638,9 @@ $("#addContactConfirm").click(function(){
                                     success: function(result) {
                             
                                         if (result.status.name == "ok") {
-                                            alert("Image uploaded");
-                                            location.reload();
+                                            $("#addContact").modal('toggle');
+                                            $("#successfulContactAdd").modal("toggle");
+                                            GetAllContacts();
                                         }
                                     },
                                     error: function(jqXHR, textStatus, errorThrown) {
@@ -707,21 +648,34 @@ $("#addContactConfirm").click(function(){
                                     }
                                 });
                             }else{
-                                alert('Image not uploaded');
+                                $("#addContact").modal('toggle');
+                                $("#successfulContactAddNoImg").modal('toggle');
+                                GetAllContacts();
                             }
                         },
                         error: function(jqXHR, textStatus, errorThrown){
                             console.log(errorThrown);
+                            $("#addContact").modal('toggle');
+                            $("#successfulContactAddNoImg").modal('toggle');
+                            GetAllContacts();
                         }
                     });
-            }else{
-                location.reload();
+                }else{
+                    $("#addContact").modal('toggle');
+                    $("#successfulContactAdd").modal("toggle");
+                    GetAllContacts();
                 }
+            }else{
+                
+                $("#emptyInputsC").text(result.status.description);
+                $("#FailedContactAdd").modal("toggle");
             }
         
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            console.log(errorThrown);
+            
+            $("#addContact").modal('toggle');
+            $("#FailedContactAdd").modal("toggle");
         }
     });
     

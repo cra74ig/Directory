@@ -1,4 +1,19 @@
 <?php
+$nErr=0;
+$lErr=0;
+if(empty($_REQUEST['name'])){
+  $nErr="name is required, ";
+  $output['status']['code'] = "500";
+  $output['status']['name'] = "Fail";
+  $output['status']['description'] = $fNameErr;
+}
+if(empty($_REQUEST['location'])){
+  $lErr="Location is required";
+  $output['status']['code'] = "500";
+  $output['status']['name'] = "Fail";
+  $output['status']['description'] = $output['status']['description'] . $lNameErr;
+}
+if($nErr === 0 && $lErr === 0){
   include("config.php");
   $link = new mysqli($host_name, $user_name, $password, $database);
 
@@ -35,5 +50,6 @@
 		mysqli_close($link);
     }
   }
+}
   echo json_encode($output); 
 ?>

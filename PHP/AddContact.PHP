@@ -1,4 +1,40 @@
 <?php
+$fNameErr=0;
+$lNameErr=0;
+$jTErr=0;
+$dErr=0;
+$eErr=0;
+if(empty($_REQUEST['firstName'])){
+  $fNameErr="First name is required, ";
+  $output['status']['code'] = "500";
+  $output['status']['name'] = "Fail";
+  $output['status']['description'] = $fNameErr;
+}
+if(empty($_REQUEST['surname'])){
+  $lNameErr="Last name is required, ";
+  $output['status']['code'] = "500";
+  $output['status']['name'] = "Fail";
+  $output['status']['description'] = $output['status']['description'] . $lNameErr;
+}
+if(empty($_REQUEST['jobTitle'])){
+  $jTErr="Job Title is required, ";
+  $output['status']['code'] = "500";
+  $output['status']['name'] = "Fail";
+  $output['status']['description'] = $output['status']['description'] . $jTErr;
+}
+if(empty($_REQUEST['department'])){
+  $dErr="Department is required, ";
+  $output['status']['code'] = "500";
+  $output['status']['name'] = "Fail";
+  $output['status']['description'] = $output['status']['description'] . $dErr;
+}
+if(empty($_REQUEST['email'])){
+  $eErr="Department is required";
+  $output['status']['code'] = "500";
+  $output['status']['name'] = "Fail";
+  $output['status']['description'] = $output['status']['description'] . $eErr;
+}
+if($fNameErr === 0 && $lNameErr === 0 && $jTErr === 0 && $dErr === 0 && $eErr === 0){
   include("config.php");
   $link = new mysqli($host_name, $user_name, $password, $database);
 
@@ -30,11 +66,12 @@
       
       $output['status']['code'] = "400";
 		  $output['status']['name'] = "executed";
-		  $output['status']['description'] = "Failed Query";	
+		  $output['status']['description'] = "Failed To Create Contact";	
 		  $output['data'] = [];
 
 		mysqli_close($query);
     }
   }
+}
   echo json_encode($output); 
 ?>

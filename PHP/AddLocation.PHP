@@ -1,4 +1,13 @@
 <?php
+$nErr=0;
+
+if(empty($_REQUEST['name'])){
+  $nErr="Location name is required";
+  $output['status']['code'] = "500";
+  $output['status']['name'] = "Fail";
+  $output['status']['description'] = $nErr;
+}
+if($nErr === 0){
   include("config.php");
   $link = new mysqli($host_name, $user_name, $password, $database);
 
@@ -35,5 +44,6 @@
 		mysqli_close($link);
     }
   }
+}
   echo json_encode($output); 
 ?>
