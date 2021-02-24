@@ -193,7 +193,7 @@ function deleteLocation($location){
                 $("#reasonsLocationsDelFail").empty();
                 for (let index = 0; index < $x; index++) { 
                     
-                    console.log(result.data[index]["name"]);
+                    
                     $("#reasonsLocationsDelFail").append("<li>"+result.data[index]["name"]+"</li>");
                     $("#failedLocationDeletion").modal("toggle");
                 }
@@ -554,7 +554,10 @@ $("#addLocationConfirm").click(function(){
                 getLocations();
                 
             }
-        
+            else{
+                $("#emptyInputsL").text(result.status.description);
+                $("#FailedLocationAdd").modal("toggle");
+            }
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);
@@ -579,7 +582,11 @@ $("#addDepartmentConfirm").click(function(){
                 GetAllDepartments();
                 
             }
-        
+            else{
+                $("#emptyInputsD").text(result.status.description);
+                $("#FailedDepartmentAdd").modal("toggle");
+                
+            }
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);
@@ -605,7 +612,7 @@ $("#addContactConfirm").click(function(){
         },
         success: function(result) {
             
-            console.log(result);
+            
             if (result.status.name === "ok") {
                 
                 $id = result.data["id"];
@@ -624,8 +631,7 @@ $("#addContactConfirm").click(function(){
                     processData: false,
                     success: function(response){
                         $path = response;
-                        console.log($path);
-                        console.log($newName);
+                        
                             if(response != "0"){
                                 $.ajax({
                                     url: "PHP/fileRename.PHP",
